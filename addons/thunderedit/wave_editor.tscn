@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5rlw13b17uyb"]
+[gd_scene load_steps=3 format=3 uid="uid://c5rlw13b17uyb"]
 
-[sub_resource type="Theme" id="Theme_mmafd"]
+[ext_resource type="Script" uid="uid://dp7mf6mkwt6oj" path="res://addons/thunderedit/wave_editor.gd" id="1_6xnb0"]
+[ext_resource type="Script" uid="uid://c3ra1rn83xkav" path="res://addons/thunderedit/editor_field.gd" id="2_b1eem"]
 
 [node name="WaveEditor" type="Control"]
 layout_mode = 3
@@ -9,57 +10,62 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_6xnb0")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MenuBar" type="MenuBar" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="FileMenu" type="MenuButton" parent="VBoxContainer/MenuBar"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 36.0
+offset_bottom = 32.0
+text = "File"
+item_count = 2
+popup/item_0/text = "Load"
+popup/item_0/id = 0
+popup/item_1/text = "Save"
+popup/item_1/id = 1
+
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 0
+offset_top = 39.0
+offset_right = 420.0
+offset_bottom = 309.0
+mouse_filter = 1
+
+[node name="EditorField" type="Control" parent="Panel2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_mmafd")
+size_flags_vertical = 4
+mouse_default_cursor_shape = 3
+script = ExtResource("2_b1eem")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-grow_horizontal = 2
+anchors_preset = -1
+anchor_right = 0.037
+anchor_bottom = 0.07700001
+offset_left = 427.0
+offset_top = 32.0
+offset_right = 471.48404
+offset_bottom = 513.806
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+[node name="ItemList" type="ItemList" parent="VBoxContainer2"]
 layout_mode = 2
-text = "Wave Editor"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Wave Data:"
-
-[node name="LineEdit" type="LineEdit" parent="Panel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Browse
-"
-
-[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label2" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Foe Node:"
-
-[node name="MenuButton" type="MenuButton" parent="Panel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Foe Type"
+auto_width = true
+auto_height = true
 item_count = 2
-popup/item_0/text = "Enemy One"
-popup/item_0/id = 0
-popup/item_1/text = "Enemy Two"
-popup/item_1/id = 1
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer"]
-layout_mode = 2
+item_0/text = "Test"
+item_1/text = "Test2"
