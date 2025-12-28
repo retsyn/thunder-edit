@@ -1,0 +1,20 @@
+{
+	"enemy_types": [
+		{
+			"id": "blueDrone",
+			"display_name": "Blue Drone"
+		},
+		{
+			"id": "greenFighter",
+			"display_name": "Green Fighter Drone"
+		},
+		{
+			"id": "clawGunner",
+			"display_name": "Red Claw Gunner"
+		},
+		{
+			"id": "sleekDone",
+			"display_name": "Sleek Interceptor"
+		}
+	]
+}
