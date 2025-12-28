@@ -22,7 +22,8 @@ func _draw():
 func get_entries():
     return EntryList
 
-func set_entries(new_entryList):
+func load_entries(new_entryList):
     """Sets the entryList known by the editor field, like when loading.
     """    
     EntryList = new_entryList
+
