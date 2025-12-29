@@ -2,10 +2,13 @@
 extends EditorPlugin
 
 var wave_editor_dock
+var editor_field
 var file_dialog: EditorFileDialog
 
 var wave_file_path: String
 var game_file_path: String
+
+@export var sequence_data: LevelSequence
 
 func _enable_plugin():
 	# Add autoloads here.
@@ -21,6 +24,7 @@ func _enter_tree():
 	# Initialization of the plugin goes here.
 	wave_editor_dock = preload("res://addons/thunderedit/wave_editor.tscn").instantiate()
 	wave_editor_dock.set_plugin(self)
+
 	add_control_to_dock(DOCK_SLOT_RIGHT_BL, wave_editor_dock)
 
 
@@ -91,6 +95,8 @@ func refresh_game_file():
 		if enemy.has("id"):
 			wave_editor_dock.EnemyList.add_item(enemy["id"])
 
+func refresh_debug_text():
+	print("FULL SEQUENCE\n%s" % sequence_data)
 
 func load_enemy_types(json_path: String):
 	var file := FileAccess.open(json_path, FileAccess.READ)

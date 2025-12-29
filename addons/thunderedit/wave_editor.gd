@@ -9,9 +9,9 @@ var plugin: EditorPlugin
 
 # Current state
 var SelectedType: int
-var CurrentPage: int
+@export var CurrentPage: int
 
-
+@export var level_data: LevelSequence
 
 func _ready():
 	editor_field = $Panel2/EditorField
@@ -21,6 +21,12 @@ func _ready():
 	file_popup.connect("id_pressed", Callable(self, "_on_file_menu_item_pressed"))
 	game_popup.connect("id_pressed", Callable(self, "_on_game_menu_item_pressed"))
 	EnemyList = $HBoxContainer3/VBoxContainer2/FoeList
+	var debug_button = $HBoxContainer2/DebugButton
+	debug_button.pressed.connect(debug_out)
+	level_data = LevelSequence.new()
+
+func get_editorfield():
+	return editor_field
 
 func _on_file_menu_item_pressed(id: int):
 	var item_name = $VBoxContainer/MenuBar/FileMenu.get_popup().get_item_text(id)
@@ -75,3 +81,17 @@ func load_enemy_types(json_path: String):
 		return []
 
 	return root["enemy_types"]
+
+func data_edited():
+	plugin.ref
+
+
+func capture_page():
+	level_data.page_list[CurrentPage] = editor_field.get_wave_data()
+	
+
+func debug_out():
+	print(JSON.stringify(level_data))
+	var page_count = len(level_data.page_list)
+	var foe_count = "UNKNOWN"
+	print("Level Data has %s Pages with a total of %s Foes." % [page_count, foe_count])

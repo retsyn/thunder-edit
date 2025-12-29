@@ -2,19 +2,27 @@
 	"enemy_types": [
 		{
 			"id": "blueDrone",
-			"display_name": "Blue Drone"
+			"display_name": "Blue Drone",
+            "size": 1.0,
+            "colour": [100, 50, 0]
 		},
 		{
 			"id": "greenFighter",
-			"display_name": "Green Fighter Drone"
+			"display_name": "Green Fighter Drone",
+            "size": 1.0,
+            "colour": [10, 100, 0]
 		},
 		{
 			"id": "clawGunner",
-			"display_name": "Red Claw Gunner"
+			"display_name": "Red Claw Gunner",
+            "size": 1.0,
+            "colour": [100, 0, 0]
 		},
 		{
 			"id": "sleekDone",
-			"display_name": "Sleek Interceptor"
+			"display_name": "Sleek Interceptor",
+            "size": 1.0,
+            "colour": [90, 80, 80]
 		}
 	]
 }
