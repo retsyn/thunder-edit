@@ -13,6 +13,7 @@ var SelectedType: int
 
 @export var level_data: LevelSequence
 
+
 func _ready():
 	editor_field = $Panel2/EditorField
 	editor_field.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -23,10 +24,23 @@ func _ready():
 	EnemyList = $HBoxContainer3/VBoxContainer2/FoeList
 	var debug_button = $HBoxContainer2/DebugButton
 	debug_button.pressed.connect(debug_out)
+	$HBoxContainer/PageLeft.pressed.connect(page_down)
+	$HBoxContainer/PageRight.pressed.connect(page_up)
 	level_data = LevelSequence.new()
+	init_pages(64) # HARD LIMIT? 
+
+	# Connect the custom signal
+	editor_field.connect("data_edited", Callable(self, "capture_page"))
+
+func init_pages(page_count: int):
+	level_data.page_list = []
+	for i in range(page_count):
+		level_data.page_list.append(null)
+
 
 func get_editorfield():
 	return editor_field
+
 
 func _on_file_menu_item_pressed(id: int):
 	var item_name = $VBoxContainer/MenuBar/FileMenu.get_popup().get_item_text(id)
@@ -45,6 +59,7 @@ func _on_file_menu_item_pressed(id: int):
 		"Save":
 			print("Saving!")
 
+
 func _on_game_menu_item_pressed(id: int):
 	var item_name = $VBoxContainer/MenuBar/GameMenu.get_popup().get_item_text(id)
 	print(item_name)
@@ -57,6 +72,23 @@ func _on_game_menu_item_pressed(id: int):
 
 func set_plugin(p: EditorPlugin):
 	plugin = p
+
+
+func refresh_page():
+	var pagelabel = $Panel2/EditorField/PageCount
+	pagelabel.text = "P:%d" % CurrentPage
+
+
+func page_up():
+	if(CurrentPage < 64):
+		CurrentPage += 1
+		refresh_page()
+	
+
+func page_down():
+	if(CurrentPage > 0):
+		CurrentPage -= 1
+		refresh_page()
 
 
 func load_enemy_types(json_path: String):
@@ -82,8 +114,9 @@ func load_enemy_types(json_path: String):
 
 	return root["enemy_types"]
 
-func data_edited():
-	plugin.ref
+
+# func data_edited():
+# 	plugin.ref
 
 
 func capture_page():
@@ -95,3 +128,8 @@ func debug_out():
 	var page_count = len(level_data.page_list)
 	var foe_count = "UNKNOWN"
 	print("Level Data has %s Pages with a total of %s Foes." % [page_count, foe_count])
+
+	for page in level_data.page_list:
+		print("Page %s:" % page)
+		for enemy in page.enemies_list:
+			print("    Enemy at %s, type: %s, mind: %s" % [enemy.position, enemy.enemy_id, enemy.mind])

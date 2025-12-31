@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5rlw13b17uyb"]
+[gd_scene load_steps=5 format=3 uid="uid://c5rlw13b17uyb"]
 
 [ext_resource type="Script" uid="uid://dp7mf6mkwt6oj" path="res://addons/thunderedit/wave_editor.gd" id="1_6xnb0"]
 [ext_resource type="Script" uid="uid://c3ra1rn83xkav" path="res://addons/thunderedit/editor_field.gd" id="2_b1eem"]
+[ext_resource type="Script" uid="uid://dy7q745gh5i7l" path="res://addons/thunderedit/level_sequence.gd" id="2_pe85m"]
+
+[sub_resource type="Resource" id="Resource_pe85m"]
+script = ExtResource("2_pe85m")
 
 [node name="WaveEditor" type="Control" node_paths=PackedStringArray("EnemyList")]
 layout_mode = 3
@@ -13,6 +17,7 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_6xnb0")
 EnemyList = NodePath("HBoxContainer3/VBoxContainer2/FoeList")
+level_data = SubResource("Resource_pe85m")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -103,6 +108,15 @@ size_flags_vertical = 4
 mouse_default_cursor_shape = 3
 script = ExtResource("2_b1eem")
 
+[node name="PageCount" type="Label" parent="Panel2/EditorField"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 245.0
+offset_right = 409.0
+offset_bottom = 268.0
+text = "Page:"
+horizontal_alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_top = 316.0
@@ -115,7 +129,7 @@ layout_mode = 2
 text = "< Page Left
 "
 
-[node name="Button" type="Button" parent="HBoxContainer"]
+[node name="PageRight" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 text = "Page Right >"
 
