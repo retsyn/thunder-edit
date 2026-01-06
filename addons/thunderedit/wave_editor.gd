@@ -62,7 +62,6 @@ func _on_file_menu_item_pressed(id: int):
 
 func _on_game_menu_item_pressed(id: int):
 	var item_name = $VBoxContainer/MenuBar/GameMenu.get_popup().get_item_text(id)
-	print(item_name)
 	match item_name:
 		"Load Game IDs":
 			print("Loading Game IDs...")
@@ -77,7 +76,6 @@ func set_plugin(p: EditorPlugin):
 func refresh_page():
 	var pagelabel = $Panel2/EditorField/PageCount
 	pagelabel.text = "P:%d" % CurrentPage
-	print("Loading entries for current page: %s\n Content is %s" % [CurrentPage, level_data.page_list[CurrentPage]])
 	editor_field.load_entries(level_data.page_list[CurrentPage])
 
 
@@ -129,8 +127,7 @@ func debug_out():
 	print(JSON.stringify(level_data.to_dict()))
 	var page_count = len(level_data.page_list)
 	var foe_count = "UNKNOWN"
-	print("Level Data has %s Pages with a total of %s Foes." % [page_count, foe_count])
-
+	
 	# for page in level_data.page_list:
 	# 	if(page == null):
 

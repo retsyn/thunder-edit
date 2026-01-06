@@ -21,7 +21,6 @@ func _on_input(event):
         local_wave_data.append(new_enemy)
         queue_redraw()
         emit_signal("data_edited")
-        print("Emitting signal!")
 
 
 func _draw():
@@ -33,7 +32,6 @@ func get_wave_data():
 
     # Convert each visual entry (e.g. Vector2s) into EnemyData
     for local_enemy in local_wave_data:
-        print("Local enemy data was %s" % local_enemy)
         var enemy = EnemyData.new()
         enemy.position = local_enemy.position
         enemy.enemy_id = 0 # TODO set this to the selection!
@@ -45,7 +43,11 @@ func get_wave_data():
 func load_entries(new_entryList):
     """Sets the entryList known by the editor field, like when loading.
     """    
-    print("Loading entries from given page:\n%s" % new_entryList)
+    if new_entryList == null:
+        local_wave_data = []
+        queue_redraw()
+        return 
+
     local_wave_data = []
     for entry in new_entryList.enemies_list:
         var new_enemy = EnemyData.new()
