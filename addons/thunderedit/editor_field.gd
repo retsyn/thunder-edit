@@ -42,7 +42,10 @@ func get_wave_data():
 func load_entries(new_entryList):
     """Sets the entryList known by the editor field, like when loading.
     """    
-    local_wave_data = new_entryList
+    print("Loading entries from given page:\n%s" % new_entryList)
+    local_wave_data = []
+    for entry in new_entryList:
+        local_wave_data.append(entry)
 
 
 func set_plugin(p: EditorPlugin):

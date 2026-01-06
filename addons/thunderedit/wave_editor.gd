@@ -77,6 +77,7 @@ func set_plugin(p: EditorPlugin):
 func refresh_page():
 	var pagelabel = $Panel2/EditorField/PageCount
 	pagelabel.text = "P:%d" % CurrentPage
+	editor_field.load_entries(level_data.page_list[CurrentPage])
 
 
 func page_up():
@@ -124,12 +125,15 @@ func capture_page():
 	
 
 func debug_out():
-	print(JSON.stringify(level_data))
+	print(JSON.stringify(level_data.to_dict()))
 	var page_count = len(level_data.page_list)
 	var foe_count = "UNKNOWN"
 	print("Level Data has %s Pages with a total of %s Foes." % [page_count, foe_count])
 
-	for page in level_data.page_list:
-		print("Page %s:" % page)
-		for enemy in page.enemies_list:
-			print("    Enemy at %s, type: %s, mind: %s" % [enemy.position, enemy.enemy_id, enemy.mind])
+	# for page in level_data.page_list:
+	# 	if(page == null):
+
+	# 		continue
+	# 	print("Page %s:" % page)
+	# 	for enemy in page.enemies_list:
+	# 		print("    Enemy at %s, type: %s, mind: %s" % [enemy.position, enemy.enemy_id, enemy.mind])
