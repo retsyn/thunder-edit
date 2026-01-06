@@ -77,6 +77,7 @@ func set_plugin(p: EditorPlugin):
 func refresh_page():
 	var pagelabel = $Panel2/EditorField/PageCount
 	pagelabel.text = "P:%d" % CurrentPage
+	print("Loading entries for current page: %s\n Content is %s" % [CurrentPage, level_data.page_list[CurrentPage]])
 	editor_field.load_entries(level_data.page_list[CurrentPage])
 
 
