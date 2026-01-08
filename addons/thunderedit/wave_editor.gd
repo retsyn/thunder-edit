@@ -13,6 +13,8 @@ var SelectedType: int
 
 @export var level_data: LevelSequence
 
+@onready var foe_selection_list: ItemList = $HBoxContainer3/VBoxContainer2/FoeList
+
 
 func _ready():
 	editor_field = $Panel2/EditorField
@@ -28,9 +30,17 @@ func _ready():
 	$HBoxContainer/PageRight.pressed.connect(page_up)
 	level_data = LevelSequence.new()
 	init_pages(64) # HARD LIMIT? 
-
+	
 	# Connect the custom signal
 	editor_field.connect("data_edited", Callable(self, "capture_page"))
+	foe_selection_list.item_selected.connect(_on_foetype_select)
+
+
+func _on_foetype_select(index: int):
+	var selected = foe_selection_list.get_selected_items()
+	if selected.size() > 0:
+		var selected_index = selected[0]
+		editor_field.update_foe_type(selected_index)
 
 func init_pages(page_count: int):
 	level_data.page_list = []

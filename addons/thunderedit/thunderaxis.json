@@ -4,13 +4,13 @@
 			"id": "blueDrone",
 			"display_name": "Blue Drone",
 			"size": 1.0,
-			"colour": [100, 50, 0]
+			"colour": [0, 50, 100]
 		},
 		{
 			"id": "greenFighter",
 			"display_name": "Green Fighter Drone",
 			"size": 1.0,
-			"colour": [10, 100, 0]
+			"colour": [0, 100, 0]
 		},
 		{
 			"id": "clawGunner",

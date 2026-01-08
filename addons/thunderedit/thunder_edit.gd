@@ -2,11 +2,12 @@
 extends EditorPlugin
 
 var wave_editor_dock
-var editor_field
+var editor_field: Control
 var file_dialog: EditorFileDialog
 
 var wave_file_path: String
 var game_file_path: String
+
 
 @export var sequence_data: LevelSequence
 
@@ -24,6 +25,7 @@ func _enter_tree():
 	# Initialization of the plugin goes here.
 	wave_editor_dock = preload("res://addons/thunderedit/wave_editor.tscn").instantiate()
 	wave_editor_dock.set_plugin(self)
+	editor_field = wave_editor_dock.get_node("Panel2/EditorField")
 
 	add_control_to_dock(DOCK_SLOT_RIGHT_BL, wave_editor_dock)
 
@@ -118,5 +120,8 @@ func load_enemy_types(json_path: String):
 	if not root.has("enemy_types") or typeof(root["enemy_types"]) != TYPE_ARRAY:
 		push_error("No 'enemy_types' array.  Is this some other kind of JSON?")
 		return []
+
+	# Editor field must know this.
+	editor_field.load_enemy_type_data(root["enemy_types"])
 
 	return root["enemy_types"]
