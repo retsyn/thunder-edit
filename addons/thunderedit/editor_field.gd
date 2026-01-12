@@ -4,8 +4,13 @@ extends Control
 
 var plugin: EditorPlugin
 @export var local_wave_data: Array[EnemyData] = []
+
+#@onready var DotScene = preload("res://addons/thunderedit/dot.tscn")
+# The "dot scene" isn't the route I'm going to go, yet.
+
 var enemy_type_data: Array = []
 var current_foe_selection: int
+var selected_dot: Control = null
 
 signal data_edited
 
@@ -16,13 +21,30 @@ func _ready():
     connect("gui_input", Callable(self, "_on_input"))
 
 
+
+
 func _on_input(event):
     if event is InputEventMouseButton and event.pressed:
-        var new_enemy = EnemyData.new()
-        new_enemy.position = event.position
-        new_enemy.enemy_id = current_foe_selection
-        local_wave_data.append(new_enemy)
+        var new_data = EnemyData.new()
+        
+        new_data.position = event.position.snapped(Vector2(10, 10))
+        new_data.enemy_id = current_foe_selection
+        var pos_match = false
+        for i in range(local_wave_data.size() - 1, -1, -1):
+            if local_wave_data[i].position == new_data.position:
+                local_wave_data.remove_at(i)
+                pos_match = true
+        if(pos_match == false):
+            local_wave_data.append(new_data)
         queue_redraw()
+        
+        # # Make a "dot" object:
+        # var dot = DotScene.instantiate()
+        # dot.position = event.position
+        # dot.enemy_data = new_data
+        # dot.connect("dot_selected", Callable(self, "_on_dot_selected"))
+        # add_child(dot)
+        
         emit_signal("data_edited")
 
 func update_foe_type(int):
@@ -65,11 +87,17 @@ func load_entries(new_entryList):
 
     local_wave_data = []
     for entry in new_entryList.enemies_list:
-        var new_enemy = EnemyData.new()
-        new_enemy.position = entry.position
-        new_enemy.enemy_id = entry.enemy_id
-        local_wave_data.append(new_enemy)
+        var new_data = EnemyData.new()
+        new_data.position = entry.position
+        new_data.enemy_id = entry.enemy_id
+        local_wave_data.append(new_data)
     queue_redraw()
 
 func set_plugin(p: EditorPlugin):
     plugin = p
+
+
+func _on_dot_selected(dot):
+    if selected_dot and selected_dot != dot:
+        selected_dot.deselect()
+    selected_dot = dot

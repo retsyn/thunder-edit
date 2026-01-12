@@ -62,7 +62,6 @@ func _on_file_menu_item_pressed(id: int):
 			else:
 				push_error("Plugin reference not set.")
 		"Save As":
-			print("Saving as...")
 			if plugin:
 				plugin.show_save_dialog()
 
@@ -134,7 +133,7 @@ func capture_page():
 	
 
 func debug_out():
-	print(JSON.stringify(level_data.to_dict()))
+	print(JSON.stringify(level_data.to_dict(), "\t"))
 	var page_count = len(level_data.page_list)
 	var foe_count = "UNKNOWN"
 	

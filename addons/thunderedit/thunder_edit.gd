@@ -4,12 +4,11 @@ extends EditorPlugin
 var wave_editor_dock
 var editor_field: Control
 var file_dialog: EditorFileDialog
+var save_dialog: EditorFileDialog
 
 var wave_file_path: String
 var game_file_path: String
 
-
-@export var sequence_data: LevelSequence
 
 func _enable_plugin():
 	# Add autoloads here.
@@ -68,19 +67,26 @@ func show_game_open_dialog():
 	
 
 func show_save_dialog():
-	if file_dialog == null:
-		file_dialog = EditorFileDialog.new()
-		file_dialog.connect("file_selected", Callable(self, "_on_wave_file_selected"))
-		get_editor_interface().get_base_control().add_child(file_dialog)
+	if save_dialog == null:
+		save_dialog = EditorFileDialog.new()
+		save_dialog.connect("file_selected", Callable(self, "_on_wave_file_selected"))
+		get_editor_interface().get_base_control().add_child(save_dialog)
 
-	file_dialog.file_mode = EditorFileDialog.FILE_MODE_SAVE_FILE
-	file_dialog.access = EditorFileDialog.ACCESS_FILESYSTEM
-	file_dialog.popup_centered()
+	save_dialog.file_mode = EditorFileDialog.FILE_MODE_SAVE_FILE
+	save_dialog.access = EditorFileDialog.ACCESS_FILESYSTEM
+	save_dialog.clear_filters()
+	save_dialog.add_filter("*.sws ; Shmup Wave Sequence files")
+	save_dialog.popup_centered()
 
 
 func _on_wave_file_selected(path: String):
 	print("Selected file:", path)
+	print("GLobalizing")
+	# Path must become a real filesystem path:
+	var system_path = ProjectSettings.globalize_path(path)
+	print("Global system path is %s" % system_path)
 	wave_file_path = path
+	save_wave_data(path)
 
 
 func _on_game_file_selected(path: String):
@@ -97,8 +103,6 @@ func refresh_game_file():
 		if enemy.has("id"):
 			wave_editor_dock.EnemyList.add_item(enemy["id"])
 
-func refresh_debug_text():
-	print("FULL SEQUENCE\n%s" % sequence_data)
 
 func load_enemy_types(json_path: String):
 	var file := FileAccess.open(json_path, FileAccess.READ)
@@ -125,3 +129,14 @@ func load_enemy_types(json_path: String):
 	editor_field.load_enemy_type_data(root["enemy_types"])
 
 	return root["enemy_types"]
+
+
+func save_wave_data(file_path):
+	print("Saving to %s" % file_path)
+	var json = JSON.stringify(wave_editor_dock.level_data.to_dict(), "\t")
+	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	if file == null:
+		push_error("Could not open file for writing: %s" % file_path)
+		return
+	file.store_string(json)
+	file.close()

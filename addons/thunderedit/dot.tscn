@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://xnwslb2byit5"]
+
+[ext_resource type="Script" uid="uid://dhf3d5422qyjj" path="res://addons/thunderedit/dot.gd" id="1_kbvtk"]
+
+[node name="Dot" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_kbvtk")
