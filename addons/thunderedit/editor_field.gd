@@ -10,7 +10,7 @@ var plugin: EditorPlugin
 
 var enemy_type_data: Array = []
 var current_foe_selection: int
-var selected_dot: Control = null
+
 
 signal data_edited
 
@@ -80,6 +80,8 @@ func get_wave_data():
 func load_entries(new_entryList):
     """Sets the entryList known by the editor field, like when loading.
     """
+    print("Loading a page with %d enemies" % local_wave_data.size())
+
     if new_entryList == null:
         local_wave_data = []
         queue_redraw()
@@ -95,9 +97,3 @@ func load_entries(new_entryList):
 
 func set_plugin(p: EditorPlugin):
     plugin = p
-
-
-func _on_dot_selected(dot):
-    if selected_dot and selected_dot != dot:
-        selected_dot.deselect()
-    selected_dot = dot

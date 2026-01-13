@@ -3,7 +3,8 @@ extends EditorPlugin
 
 var wave_editor_dock
 var editor_field: Control
-var file_dialog: EditorFileDialog
+var types_dialog: EditorFileDialog
+var load_dialog: EditorFileDialog
 var save_dialog: EditorFileDialog
 
 var wave_file_path: String
@@ -38,32 +39,32 @@ func _exit_tree():
 
 func show_open_dialog():
 
-	if file_dialog == null:
-		file_dialog = EditorFileDialog.new()
-		file_dialog.connect("file_selected", Callable(self, "_on_wave_file_selected"))
-		get_editor_interface().get_base_control().add_child(file_dialog)
+	if load_dialog == null:
+		load_dialog = EditorFileDialog.new()
+		load_dialog.connect("file_selected", Callable(self, "_on_load_file_selected"))
+		get_editor_interface().get_base_control().add_child(load_dialog)
 
-	file_dialog.clear_filters()
-	file_dialog.add_filter("*.sws ; Shmup Wave Sequence files")
+	load_dialog.clear_filters()
+	load_dialog.add_filter("*.sws ; Shmup Wave Sequence files")
 
-	file_dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_FILE
-	file_dialog.access = EditorFileDialog.ACCESS_FILESYSTEM
-	file_dialog.popup_centered()
+	load_dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_FILE
+	load_dialog.access = EditorFileDialog.ACCESS_FILESYSTEM
+	load_dialog.popup_centered()
 
 
 func show_game_open_dialog():
 
-	if file_dialog == null:
-		file_dialog = EditorFileDialog.new()
-		file_dialog.connect("file_selected", Callable(self, "_on_game_file_selected"))
-		get_editor_interface().get_base_control().add_child(file_dialog)
+	if types_dialog == null:
+		types_dialog = EditorFileDialog.new()
+		types_dialog.connect("file_selected", Callable(self, "_on_game_file_selected"))
+		get_editor_interface().get_base_control().add_child(types_dialog)
 
-	file_dialog.clear_filters()
-	file_dialog.add_filter("*.JSON ; Game info JSON files")
+	types_dialog.clear_filters()
+	types_dialog.add_filter("*.JSON ; Game info JSON files")
 
-	file_dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_FILE
-	file_dialog.access = EditorFileDialog.ACCESS_FILESYSTEM
-	file_dialog.popup_centered()
+	types_dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_FILE
+	types_dialog.access = EditorFileDialog.ACCESS_FILESYSTEM
+	types_dialog.popup_centered()
 	
 
 func show_save_dialog():
@@ -87,6 +88,11 @@ func _on_wave_file_selected(path: String):
 	print("Global system path is %s" % system_path)
 	wave_file_path = path
 	save_wave_data(path)
+
+
+func _on_load_file_selected(path: String):
+	print("Got signal to load...")
+	load_wave_data(path)
 
 
 func _on_game_file_selected(path: String):
@@ -140,3 +146,40 @@ func save_wave_data(file_path):
 		return
 	file.store_string(json)
 	file.close()
+
+
+func load_wave_data(file_path):
+	print("Opening %s" % file_path)
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if file == null:
+		push_error("Failed to open %s.\nDouble check the path." % file_path)
+		return
+
+	var json_string = file.get_as_text()
+	file.close()
+
+	var json = JSON.new()
+	var parse_result = json.parse(json_string)
+
+	if parse_result != OK:
+		push_error("Parse error in JSON: %s" % json.get_error_message())
+		return
+
+	var root = json.get_data()
+	if typeof(root) != TYPE_DICTIONARY:
+		push_error("Expected root JSON to be a dict.")
+		return
+
+	if wave_editor_dock.level_data == null:
+		wave_editor_dock.level_data = LevelSequence.new()
+
+	wave_editor_dock.level_data.from_dict(root)
+	print("Root is\n%s" % root)
+	print("DATa in memory is:\n%s" % wave_editor_dock.level_data)
+
+	wave_editor_dock.CurrentPage = 0
+	wave_editor_dock.refresh_page()
+	
+	
+
+

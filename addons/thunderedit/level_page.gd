@@ -18,13 +18,13 @@ func to_dict():
     }
 
 func from_dict(data: Dictionary):
-    if data.has("enemies_list"):
+    print("\n\nADDING A PAGE\n\n")
+    if(data.has("enemies_list")):
+        print("--\nAdding an 'enemies_list' entry\n--")
         enemies_list = []
         for enemy in data["enemies_list"]:
-            var new_enemy: EnemyData
-            new_enemy.enemy_id = enemy["enemy_id"]
-            new_enemy.position = enemy["position"]
-            new_enemy.mind = enemy["mind"]
+            var new_enemy:= EnemyData.new()
+            new_enemy.from_dict(enemy)
             enemies_list.append(new_enemy)
-        flip_type = data["flip_type"]
-        timer = data["timer"]
+    flip_type = data["flip_type"]
+    timer = data["timer"]

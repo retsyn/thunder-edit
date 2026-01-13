@@ -43,6 +43,7 @@ func _on_foetype_select(index: int):
 		editor_field.update_foe_type(selected_index)
 
 func init_pages(page_count: int):
+	print("initializing pages!")
 	level_data.page_list = []
 	for i in range(page_count):
 		level_data.page_list.append(null)
