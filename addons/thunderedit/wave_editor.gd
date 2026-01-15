@@ -28,8 +28,11 @@ func _ready():
 	debug_button.pressed.connect(debug_out)
 	$HBoxContainer/PageLeft.pressed.connect(page_down)
 	$HBoxContainer/PageRight.pressed.connect(page_up)
+	$HBoxContainer2/PathTypeButton.item_selected.connect(_on_pagetype_changed)
 	level_data = LevelSequence.new()
-	init_pages(64) # HARD LIMIT? 
+	level_data.page_list.append(LevelPage.new())
+	refresh_page()
+	#init_pages(64) # HARD LIMIT? 
 	
 	# Connect the custom signal
 	editor_field.connect("data_edited", Callable(self, "capture_page"))
@@ -77,7 +80,12 @@ func _on_game_menu_item_pressed(id: int):
 			print("Loading Game IDs...")
 			if plugin:
 				plugin.show_game_open_dialog()
-				
+
+
+func _on_pagetype_changed(index):
+	level_data.page_list[CurrentPage].cruise_type = index
+	print("set cruise type on %d to %d" % [CurrentPage, index])
+
 
 func set_plugin(p: EditorPlugin):
 	plugin = p
@@ -85,14 +93,23 @@ func set_plugin(p: EditorPlugin):
 
 func refresh_page():
 	var pagelabel = $Panel2/EditorField/PageCount
-	pagelabel.text = "P:%d" % CurrentPage
-	editor_field.load_entries(level_data.page_list[CurrentPage])
+	pagelabel.text = "P:%d/%d" % [CurrentPage, level_data.page_list.size() - 1]
+
+	if CurrentPage < level_data.page_list.size():
+		var page = level_data.page_list[CurrentPage]
+		editor_field.load_entries(page)
+		$HBoxContainer2/PathTypeButton.select(page.cruise_type)
+	else:
+		$HBoxContainer2/PathTypeButton.select(0)
 
 
 func page_up():
-	if(CurrentPage < 64):
-		CurrentPage += 1
-		refresh_page()
+	
+	CurrentPage += 1
+	if(CurrentPage >= level_data.page_list.size()):
+		print("Adding a fresh page.")
+		level_data.page_list.append(LevelPage.new())
+	refresh_page()
 	
 
 func page_down():
@@ -130,8 +147,9 @@ func load_enemy_types(json_path: String):
 
 
 func capture_page():
+
 	level_data.page_list[CurrentPage] = editor_field.get_wave_data()
-	
+
 
 func debug_out():
 	print(JSON.stringify(level_data.to_dict(), "\t"))

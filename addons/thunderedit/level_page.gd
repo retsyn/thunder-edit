@@ -5,6 +5,8 @@ class_name LevelPage
 
 var enemies_list: Array[EnemyData] = []
 var flip_type: int
+var approach_type: int
+var cruise_type: int
 var timer: float
 
 func to_dict():
@@ -14,7 +16,9 @@ func to_dict():
     return {
         "enemies_list": serial_enemy_list,
         "flip_type": flip_type,
-        "timer": timer
+        "timer": timer,
+        "cruise_type": cruise_type,
+        "approach_type": approach_type
     }
 
 func from_dict(data: Dictionary):
@@ -28,3 +32,5 @@ func from_dict(data: Dictionary):
             enemies_list.append(new_enemy)
     flip_type = data["flip_type"]
     timer = data["timer"]
+    cruise_type = data["cruise_type"]
+    approach_type = data["approach_type"]
