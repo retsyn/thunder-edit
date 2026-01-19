@@ -13,6 +13,7 @@ var current_foe_selection: int
 
 
 signal data_edited
+signal tried_write_without_json
 
 
 func _ready():
@@ -25,27 +26,38 @@ func _ready():
 
 func _on_input(event):
     if event is InputEventMouseButton and event.pressed:
-        var new_data = EnemyData.new()
-        
-        new_data.position = event.position.snapped(Vector2(10, 10))
-        new_data.enemy_id = current_foe_selection
-        var pos_match = false
-        for i in range(local_wave_data.size() - 1, -1, -1):
-            if local_wave_data[i].position == new_data.position:
-                local_wave_data.remove_at(i)
-                pos_match = true
-        if(pos_match == false):
-            local_wave_data.append(new_data)
-        queue_redraw()
-        
-        # # Make a "dot" object:
-        # var dot = DotScene.instantiate()
-        # dot.position = event.position
-        # dot.enemy_data = new_data
-        # dot.connect("dot_selected", Callable(self, "_on_dot_selected"))
-        # add_child(dot)
-        
-        emit_signal("data_edited")
+        match event.button_index:
+            MOUSE_BUTTON_LEFT:
+                _handle_left_click(event)
+            MOUSE_BUTTON_RIGHT:
+                _handle_right_click(event)
+
+func _handle_right_click(event):
+    var pos_match = false
+    for i in range(local_wave_data.size() - 1, -1, -1):
+        if local_wave_data[i].position == event.position.snapped(Vector2(10, 10)):
+            var enemy_type = local_wave_data[i].enemy_id
+            print("Selected %s at %s" % [enemy_type, local_wave_data[i].position])
+            EditorInterface.get_inspector().edit(local_wave_data[i])
+
+func _handle_left_click(event):
+    if enemy_type_data == []:
+        print("Must load a Game IDs json.")
+        emit_signal("tried_write_without_json", 0)
+        return
+    var new_data = EnemyData.new()
+    
+    new_data.position = event.position.snapped(Vector2(10, 10))
+    new_data.enemy_id = current_foe_selection
+    var pos_match = false
+    for i in range(local_wave_data.size() - 1, -1, -1):
+        if local_wave_data[i].position == new_data.position:
+            local_wave_data.remove_at(i)
+            pos_match = true
+    if(pos_match == false):
+        local_wave_data.append(new_data)
+    queue_redraw()        
+    emit_signal("data_edited")
 
 func update_foe_type(int):
     current_foe_selection = int

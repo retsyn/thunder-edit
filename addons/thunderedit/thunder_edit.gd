@@ -139,6 +139,7 @@ func load_enemy_types(json_path: String):
 
 func save_wave_data(file_path):
 	print("Saving to %s" % file_path)
+	wave_editor_dock.last_save_path = file_path
 	var json = JSON.stringify(wave_editor_dock.level_data.to_dict(), "\t")
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
 	if file == null:

@@ -3,9 +3,9 @@ extends Resource
 
 class_name EnemyData
 
-var enemy_id: int
-var position: Vector2
-var mind: int
+@export var enemy_id: int
+@export var position: Vector2
+@export var mind: int
 
 func to_dict():
     return {

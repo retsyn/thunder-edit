@@ -10,10 +10,10 @@ var plugin: EditorPlugin
 # Current state
 var SelectedType: int
 @export var CurrentPage: int
-
 @export var level_data: LevelSequence
-
 @onready var foe_selection_list: ItemList = $HBoxContainer3/VBoxContainer2/FoeList
+
+var last_save_path = ""
 
 
 func _ready():
@@ -32,10 +32,11 @@ func _ready():
 	level_data = LevelSequence.new()
 	level_data.page_list.append(LevelPage.new())
 	refresh_page()
-	#init_pages(64) # HARD LIMIT? 
+
 	
 	# Connect the custom signal
 	editor_field.connect("data_edited", Callable(self, "capture_page"))
+	editor_field.connect("tried_write_without_json", Callable(self, "_on_game_menu_item_pressed"))
 	foe_selection_list.item_selected.connect(_on_foetype_select)
 
 
@@ -49,7 +50,7 @@ func init_pages(page_count: int):
 	print("initializing pages!")
 	level_data.page_list = []
 	for i in range(page_count):
-		level_data.page_list.append(null)
+		level_data.page_list.append(LevelPage.new())
 
 
 func get_editorfield():
@@ -65,12 +66,20 @@ func _on_file_menu_item_pressed(id: int):
 				plugin.show_open_dialog()
 			else:
 				push_error("Plugin reference not set.")
-		"Save As":
+		"Save as JSON":
 			if plugin:
 				plugin.show_save_dialog()
 
 		"Save":
-			print("Saving!")
+			if(last_save_path != ""):
+				print("Saving %s" % last_save_path)				
+				plugin.save_wave_data(last_save_path)
+
+		"New":
+			level_data = LevelSequence.new()
+			CurrentPage = 0
+			init_pages(1)
+			refresh_page()
 
 
 func _on_game_menu_item_pressed(id: int):
