@@ -10,6 +10,7 @@ var plugin: EditorPlugin
 
 var enemy_type_data: Array = []
 var current_foe_selection: int
+var current_page: LevelPage = null
 
 
 signal data_edited
@@ -36,9 +37,13 @@ func _handle_right_click(event):
     var pos_match = false
     for i in range(local_wave_data.size() - 1, -1, -1):
         if local_wave_data[i].position == event.position.snapped(Vector2(10, 10)):
-            var enemy_type = local_wave_data[i].enemy_id
-            print("Selected %s at %s" % [enemy_type, local_wave_data[i].position])
-            EditorInterface.get_inspector().edit(local_wave_data[i])
+            var enemy := local_wave_data[i]
+            EditorInterface.get_inspector().edit(enemy)
+
+            if not enemy.changed.is_connected(_on_enemy_changed):
+                enemy.changed.connect(_on_enemy_changed)
+            break
+
 
 func _handle_left_click(event):
     if enemy_type_data == []:
@@ -59,6 +64,10 @@ func _handle_left_click(event):
     queue_redraw()        
     emit_signal("data_edited")
 
+func _on_enemy_changed():
+    emit_signal("data_edited")
+    queue_redraw()
+
 func update_foe_type(int):
     current_foe_selection = int
 
@@ -77,32 +86,20 @@ func _draw():
         draw_circle(entry.position, 5.0, new_colour)
 
 func get_wave_data():
-    var page = LevelPage.new()
+    return current_page
 
-    # Convert each visual entry (e.g. Vector2s) into EnemyData
-    for local_enemy in local_wave_data:
-        var enemy = EnemyData.new()
-        enemy.position = local_enemy.position
-        enemy.enemy_id = local_enemy.enemy_id
-        enemy.mind = local_enemy.mind
-        page.enemies_list.append(enemy)
 
-    return page
-
-func load_entries(new_entryList):
+func load_entries(new_page):
     """Sets the entryList known by the editor field, like when loading.
     """
-    if new_entryList == null:
+    current_page = new_page
+    if current_page == null:
         local_wave_data = []
         queue_redraw()
         return
+    else:
+        local_wave_data = current_page.enemies_list
 
-    local_wave_data = []
-    for entry in new_entryList.enemies_list:
-        var new_data = EnemyData.new()
-        new_data.position = entry.position
-        new_data.enemy_id = entry.enemy_id
-        local_wave_data.append(new_data)
     queue_redraw()
 
 func set_plugin(p: EditorPlugin):
