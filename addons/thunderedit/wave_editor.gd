@@ -61,19 +61,36 @@ func _on_file_menu_item_pressed(id: int):
 	var item_name = $VBoxContainer/MenuBar/FileMenu.get_popup().get_item_text(id)
 	match item_name:
 		"Load":
-			print("Opening file...")
-			if plugin:
-				plugin.show_open_dialog()
+			if editor_field.enemy_type_data == []:
+				editor_field.emit_signal("tried_write_without_json", 0)
+				plugin.show_warning("Must have gamedata JSON open before loading a file.", "Warning")
 			else:
-				push_error("Plugin reference not set.")
+				print("Opening file...")
+				if plugin:
+					plugin.show_open_dialog()
+				else:
+					push_error("Plugin reference not set.")
+
 		"Save as JSON":
 			if plugin:
 				plugin.show_save_dialog()
 
+		"Save as TRes":
+			print("Save as tres!")
+			if plugin:
+				plugin.show_save_res_dialog()
+			else:
+				push_error("Plugin reference not set.")
+
 		"Save":
 			if(last_save_path != ""):
 				print("Saving %s" % last_save_path)				
-				plugin.save_wave_data(last_save_path)
+				plugin.save_generic(last_save_path)
+			else:
+				if plugin:
+					plugin.show_save_res_dialog()
+				else:
+					push_error("Plugin reference not set.")
 
 		"New":
 			level_data = LevelSequence.new()

@@ -4,7 +4,8 @@ extends Resource
 
 class_name LevelSequence
 
-var page_list: Array[LevelPage] = []
+@export var page_list: Array[LevelPage] = []
+@export var version: int = 1
 
 func to_dict():
     var serial_pages: Array[Dictionary] = []

@@ -92,8 +92,6 @@ func get_wave_data():
 func load_entries(new_entryList):
     """Sets the entryList known by the editor field, like when loading.
     """
-    print("Loading a page with %d enemies" % local_wave_data.size())
-
     if new_entryList == null:
         local_wave_data = []
         queue_redraw()

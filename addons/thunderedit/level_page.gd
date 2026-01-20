@@ -3,11 +3,11 @@ extends Resource
 
 class_name LevelPage
 
-var enemies_list: Array[EnemyData] = []
-var flip_type: int
-var approach_type: int
-var cruise_type: int
-var timer: float
+@export var enemies_list: Array[EnemyData] = []
+@export var flip_type: int
+@export var approach_type: int
+@export var cruise_type: int
+@export var timer: float
 
 func to_dict():
     var serial_enemy_list: Array[Dictionary] = []

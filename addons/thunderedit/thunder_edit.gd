@@ -6,6 +6,8 @@ var editor_field: Control
 var types_dialog: EditorFileDialog
 var load_dialog: EditorFileDialog
 var save_dialog: EditorFileDialog
+var saveres_dialog: EditorFileDialog
+var loadres_dialog: EditorFileDialog
 
 var wave_file_path: String
 var game_file_path: String
@@ -45,6 +47,7 @@ func show_open_dialog():
 		get_editor_interface().get_base_control().add_child(load_dialog)
 
 	load_dialog.clear_filters()
+	load_dialog.add_filter("*.tres ; LevelSequence Resource")
 	load_dialog.add_filter("*.sws ; Shmup Wave Sequence files")
 
 	load_dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_FILE
@@ -80,9 +83,46 @@ func show_save_dialog():
 	save_dialog.popup_centered()
 
 
+func show_save_res_dialog():
+	if saveres_dialog == null:
+		saveres_dialog = EditorFileDialog.new()
+		saveres_dialog.connect("file_selected", Callable(self, "_on_save_res_selected"))
+		get_editor_interface().get_base_control().add_child(saveres_dialog)
+
+	saveres_dialog.file_mode = EditorFileDialog.FILE_MODE_SAVE_FILE
+	saveres_dialog.access = EditorFileDialog.ACCESS_FILESYSTEM
+	saveres_dialog.clear_filters()
+	saveres_dialog.add_filter("*.tres ; Wave Sequence Resource")
+	saveres_dialog.popup_centered()
+
+
+func show_load_res_dialog():
+
+	if loadres_dialog == null:
+		loadres_dialog = EditorFileDialog.new()
+		loadres_dialog.connect("file_selected", Callable(self, "_on_load_res_selected"))
+		get_editor_interface().get_base_control().add_child(types_dialog)
+
+	loadres_dialog.clear_filters()
+	loadres_dialog.add_filter("*.tres ; Wave Data Resource files")
+
+	loadres_dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_FILE
+	loadres_dialog.access = EditorFileDialog.ACCESS_FILESYSTEM
+	loadres_dialog.popup_centered()
+
+func _on_save_res_selected(path: String):
+	print("Selected file:", path)
+	# Path must become a real filesystem path:
+	var system_path = ProjectSettings.globalize_path(path)
+	print("Global system path is %s" % system_path)
+	wave_file_path = path
+	save_res_data(path)
+
+
+
+
 func _on_wave_file_selected(path: String):
 	print("Selected file:", path)
-	print("GLobalizing")
 	# Path must become a real filesystem path:
 	var system_path = ProjectSettings.globalize_path(path)
 	print("Global system path is %s" % system_path)
@@ -137,6 +177,27 @@ func load_enemy_types(json_path: String):
 	return root["enemy_types"]
 
 
+func save_generic(file_path):
+	var dot = file_path.rfind('.')
+	if dot == -1:
+		push_error("Unknown file type: %s" % file_path)
+	
+	var ext = file_path.substr(dot + 1).to_lower()
+
+	match ext:
+		"json":
+			save_wave_data(file_path)
+			wave_editor_dock.last_save_path = file_path
+		
+		"tres", "res":
+			save_res_data(file_path)
+			wave_editor_dock.last_save_path = file_path
+
+		_:
+			push_error("Unknown file extension: %s" % ext)
+
+
+
 func save_wave_data(file_path):
 	print("Saving to %s" % file_path)
 	wave_editor_dock.last_save_path = file_path
@@ -149,7 +210,63 @@ func save_wave_data(file_path):
 	file.close()
 
 
+func save_res_data(file_path):
+	var res = wave_editor_dock.level_data
+	var err := ResourceSaver.save(res, file_path)
+
+	if err != OK:
+		push_error("Failed to save resource: %s (err=%d)" % [file_path, err])
+	else:
+		print("Saved as a resource: %s" % file_path)
+	
+
+func load_res_data(file_path):
+	var res = load(file_path)
+
+	if res == null:
+		push_error("Failed to load resource: %s" % file_path)
+		return
+
+	var level_data := res as LevelSequence
+	if level_data == null:
+		push_error("Given resource wasn't a level data sequence.")
+		return
+
+	print("Loaded from resource: %s" % file_path)
+	wave_editor_dock.level_data = res
+	wave_editor_dock.refresh_page()
+
+
 func load_wave_data(file_path):
+	
+	var dot = file_path.rfind('.')
+	if dot == -1:
+		push_error("Unknown file type: %s" % file_path)
+	
+	var ext = file_path.substr(dot + 1).to_lower()
+
+	match ext:
+		"json":
+			load_from_json(file_path)
+			wave_editor_dock.last_save_path = file_path
+		
+		"tres", "res":
+			load_from_resource(file_path)
+			wave_editor_dock.last_save_path = file_path
+
+		_:
+			push_error("Unknown file extension: %s" % ext)
+
+
+func load_from_resource(file_path):
+
+	var loaded_seq := load(file_path) as LevelSequence
+	wave_editor_dock.level_data = loaded_seq
+	wave_editor_dock.CurrentPage = 0
+	wave_editor_dock.refresh_page()
+
+
+func load_from_json(file_path):
 	print("Opening %s" % file_path)
 	var file = FileAccess.open(file_path, FileAccess.READ)
 	if file == null:
@@ -182,5 +299,15 @@ func load_wave_data(file_path):
 	wave_editor_dock.refresh_page()
 	
 	
+func show_warning(msg: String, title: String = "Warning"):
+	var diag = AcceptDialog.new()
+	diag.title = title
+	diag.dialog_text = msg
+
+	add_child(diag)
+	diag.popup_centered()
+
+	diag.confirmed.connect(diag.queue_free)
+	diag.canceled.connect(diag.queue_free)
 
 

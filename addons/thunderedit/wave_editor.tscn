@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5rlw13b17uyb"]
+[gd_scene load_steps=8 format=3 uid="uid://c5rlw13b17uyb"]
 
 [ext_resource type="Script" uid="uid://dp7mf6mkwt6oj" path="res://addons/thunderedit/wave_editor.gd" id="1_6xnb0"]
 [ext_resource type="Script" uid="uid://c3ra1rn83xkav" path="res://addons/thunderedit/editor_field.gd" id="2_b1eem"]
 [ext_resource type="Script" uid="uid://dy7q745gh5i7l" path="res://addons/thunderedit/level_sequence.gd" id="2_pe85m"]
+[ext_resource type="Script" uid="uid://bdcsuimyur604" path="res://addons/thunderedit/level_page.gd" id="2_swcvt"]
+[ext_resource type="Script" uid="uid://djmccwdkjs7lk" path="res://addons/thunderedit/enemy_data.gd" id="3_k5ef2"]
 
-[sub_resource type="Resource" id="Resource_pe85m"]
+[sub_resource type="Resource" id="Resource_swcvt"]
+script = ExtResource("2_swcvt")
+
+[sub_resource type="Resource" id="Resource_k5ef2"]
 script = ExtResource("2_pe85m")
+page_list = Array[ExtResource("2_swcvt")]([SubResource("Resource_swcvt")])
 
 [node name="WaveEditor" type="Control" node_paths=PackedStringArray("EnemyList")]
 layout_mode = 3
@@ -17,7 +23,7 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_6xnb0")
 EnemyList = NodePath("HBoxContainer3/VBoxContainer2/FoeList")
-level_data = SubResource("Resource_pe85m")
+level_data = SubResource("Resource_k5ef2")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -37,14 +43,14 @@ text = "File"
 item_count = 5
 popup/item_0/text = "Load"
 popup/item_0/id = 0
-popup/item_1/text = "Save As"
+popup/item_1/text = "Save as JSON"
 popup/item_1/id = 1
-popup/item_2/text = "Save as JSON"
+popup/item_2/text = "Save as TRes"
 popup/item_2/id = 2
-popup/item_3/text = "Save as TRes"
-popup/item_3/id = 4
+popup/item_3/text = "Save"
+popup/item_3/id = 3
 popup/item_4/text = "New"
-popup/item_4/id = 3
+popup/item_4/id = 4
 
 [node name="GameMenu" type="MenuButton" parent="VBoxContainer/MenuBar"]
 layout_mode = 0
