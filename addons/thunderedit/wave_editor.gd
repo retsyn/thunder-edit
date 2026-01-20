@@ -24,11 +24,12 @@ func _ready():
 	file_popup.connect("id_pressed", Callable(self, "_on_file_menu_item_pressed"))
 	game_popup.connect("id_pressed", Callable(self, "_on_game_menu_item_pressed"))
 	EnemyList = $HBoxContainer3/VBoxContainer2/FoeList
-	var debug_button = $HBoxContainer2/DebugButton
-	debug_button.pressed.connect(debug_out)
 	$HBoxContainer/PageLeft.pressed.connect(page_down)
 	$HBoxContainer/PageRight.pressed.connect(page_up)
-	$HBoxContainer2/PathTypeButton.item_selected.connect(_on_pagetype_changed)
+	$HBoxContainer2/PathTypeButton.item_selected.connect(_on_pathtype_changed)
+	$HBoxContainer/PageTypeButton.item_selected.connect(_on_pagetype_changed)
+	$HBoxContainer2/ApproachButton.item_selected.connect(_on_approachtype_changed)
+
 	level_data = LevelSequence.new()
 	level_data.page_list.append(LevelPage.new())
 	refresh_page()
@@ -83,8 +84,8 @@ func _on_file_menu_item_pressed(id: int):
 				push_error("Plugin reference not set.")
 
 		"Save":
-			if(last_save_path != ""):
-				print("Saving %s" % last_save_path)				
+			if (last_save_path != ""):
+				print("Saving %s" % last_save_path)
 				plugin.save_generic(last_save_path)
 			else:
 				if plugin:
@@ -109,8 +110,15 @@ func _on_game_menu_item_pressed(id: int):
 
 
 func _on_pagetype_changed(index):
+	level_data.page_list[CurrentPage].flip_type = index
+
+
+func _on_pathtype_changed(index):
 	level_data.page_list[CurrentPage].cruise_type = index
-	print("set cruise type on %d to %d" % [CurrentPage, index])
+
+
+func _on_approachtype_changed(index):
+	level_data.page_list[CurrentPage].approach_type = index
 
 
 func set_plugin(p: EditorPlugin):
@@ -125,21 +133,24 @@ func refresh_page():
 		var page = level_data.page_list[CurrentPage]
 		editor_field.load_entries(page)
 		$HBoxContainer2/PathTypeButton.select(page.cruise_type)
+		$HBoxContainer/PageTypeButton.select(page.flip_type)
+		$HBoxContainer2/ApproachButton.select(page.approach_type)
 	else:
 		$HBoxContainer2/PathTypeButton.select(0)
+		$HBoxContainer/PageTypeButton.select(0)
+		$HBoxContainer2/ApproachButton.select(0)
 
 
 func page_up():
-	
 	CurrentPage += 1
-	if(CurrentPage >= level_data.page_list.size()):
+	if (CurrentPage >= level_data.page_list.size()):
 		print("Adding a fresh page.")
 		level_data.page_list.append(LevelPage.new())
 	refresh_page()
 	
 
 func page_down():
-	if(CurrentPage > 0):
+	if (CurrentPage > 0):
 		CurrentPage -= 1
 		refresh_page()
 
@@ -168,12 +179,7 @@ func load_enemy_types(json_path: String):
 	return root["enemy_types"]
 
 
-# func data_edited():
-# 	plugin.ref
-
-
 func capture_page():
-
 	level_data.page_list[CurrentPage] = editor_field.get_wave_data()
 
 
@@ -181,11 +187,3 @@ func debug_out():
 	print(JSON.stringify(level_data.to_dict(), "\t"))
 	var page_count = len(level_data.page_list)
 	var foe_count = "UNKNOWN"
-	
-	# for page in level_data.page_list:
-	# 	if(page == null):
-
-	# 		continue
-	# 	print("Page %s:" % page)
-	# 	for enemy in page.enemies_list:
-	# 		print("    Enemy at %s, type: %s, mind: %s" % [enemy.position, enemy.enemy_id, enemy.mind])

@@ -179,7 +179,7 @@ text = "Approach Type:"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="HBoxContainer2"]
+[node name="ApproachButton" type="OptionButton" parent="HBoxContainer2"]
 layout_mode = 2
 selected = 0
 item_count = 4
@@ -191,7 +191,3 @@ popup/item_2/text = "Top"
 popup/item_2/id = 2
 popup/item_3/text = "Bottom"
 popup/item_3/id = 3
-
-[node name="DebugButton" type="Button" parent="HBoxContainer2"]
-layout_mode = 2
-text = "Debug Dump"

@@ -23,8 +23,6 @@ func _ready():
     connect("gui_input", Callable(self, "_on_input"))
 
 
-
-
 func _on_input(event):
     if event is InputEventMouseButton and event.pressed:
         match event.button_index:
@@ -32,6 +30,7 @@ func _on_input(event):
                 _handle_left_click(event)
             MOUSE_BUTTON_RIGHT:
                 _handle_right_click(event)
+
 
 func _handle_right_click(event):
     var pos_match = false
