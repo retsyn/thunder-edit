@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c5rlw13b17uyb"]
+[gd_scene format=3 uid="uid://c5rlw13b17uyb"]
 
 [ext_resource type="Script" uid="uid://dp7mf6mkwt6oj" path="res://addons/thunderedit/wave_editor.gd" id="1_6xnb0"]
 [ext_resource type="Script" uid="uid://c3ra1rn83xkav" path="res://addons/thunderedit/editor_field.gd" id="2_b1eem"]
@@ -13,7 +13,7 @@ script = ExtResource("2_swcvt")
 script = ExtResource("2_pe85m")
 page_list = Array[ExtResource("2_swcvt")]([SubResource("Resource_swcvt")])
 
-[node name="WaveEditor" type="Control" node_paths=PackedStringArray("EnemyList")]
+[node name="WaveEditor" type="Control" unique_id=523684646 node_paths=PackedStringArray("EnemyList")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,15 +25,15 @@ script = ExtResource("1_6xnb0")
 EnemyList = NodePath("HBoxContainer3/VBoxContainer2/FoeList")
 level_data = SubResource("Resource_k5ef2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1159748040]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="MenuBar" type="MenuBar" parent="VBoxContainer"]
+[node name="MenuBar" type="MenuBar" parent="VBoxContainer" unique_id=1920796378]
 layout_mode = 2
 
-[node name="FileMenu" type="MenuButton" parent="VBoxContainer/MenuBar"]
+[node name="FileMenu" type="MenuButton" parent="VBoxContainer/MenuBar" unique_id=208634676]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 1.0
@@ -52,7 +52,7 @@ popup/item_3/id = 3
 popup/item_4/text = "New"
 popup/item_4/id = 4
 
-[node name="GameMenu" type="MenuButton" parent="VBoxContainer/MenuBar"]
+[node name="GameMenu" type="MenuButton" parent="VBoxContainer/MenuBar" unique_id=754635578]
 layout_mode = 0
 offset_left = 40.0
 offset_top = 1.0
@@ -63,35 +63,35 @@ item_count = 1
 popup/item_0/text = "Load Game IDs"
 popup/item_0/id = 0
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="."]
+[node name="HBoxContainer3" type="HBoxContainer" parent="." unique_id=821760079]
 layout_mode = 0
 offset_left = 429.0
 offset_right = 701.0
 offset_bottom = 309.0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer3"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer3" unique_id=1688339445]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer3/VBoxContainer2"]
+[node name="Label" type="Label" parent="HBoxContainer3/VBoxContainer2" unique_id=177675833]
 layout_mode = 2
 text = "Foe Selection:"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="FoeList" type="ItemList" parent="HBoxContainer3/VBoxContainer2"]
+[node name="FoeList" type="ItemList" parent="HBoxContainer3/VBoxContainer2" unique_id=1692348379]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 auto_width = true
 auto_height = true
 
-[node name="Panel2" type="Panel" parent="."]
+[node name="Panel2" type="Panel" parent="." unique_id=862198837]
 layout_mode = 0
 offset_top = 39.0
 offset_right = 420.0
 offset_bottom = 309.0
 mouse_filter = 1
 
-[node name="EditorField" type="Control" parent="Panel2"]
+[node name="EditorField" type="Control" parent="Panel2" unique_id=51216793]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -103,7 +103,7 @@ size_flags_vertical = 4
 mouse_default_cursor_shape = 3
 script = ExtResource("2_b1eem")
 
-[node name="PageCount" type="Label" parent="Panel2/EditorField"]
+[node name="PageCount" type="Label" parent="Panel2/EditorField" unique_id=1741588844]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 245.0
@@ -112,30 +112,30 @@ offset_bottom = 268.0
 text = "P:0/0"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=370828250]
 layout_mode = 0
 offset_top = 316.0
 offset_right = 561.0
 offset_bottom = 347.0
 alignment = 1
 
-[node name="PageLeft" type="Button" parent="HBoxContainer"]
+[node name="PageLeft" type="Button" parent="HBoxContainer" unique_id=239676723]
 layout_mode = 2
 text = "< Page Left
 "
 
-[node name="PageRight" type="Button" parent="HBoxContainer"]
+[node name="PageRight" type="Button" parent="HBoxContainer" unique_id=1357990174]
 layout_mode = 2
 text = "Page Right >"
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1232644926]
 layout_mode = 2
 text = "Page Type:"
 horizontal_alignment = 2
 vertical_alignment = 1
 justification_flags = 131
 
-[node name="PageTypeButton" type="OptionButton" parent="HBoxContainer"]
+[node name="PageTypeButton" type="OptionButton" parent="HBoxContainer" unique_id=1378764373]
 layout_mode = 2
 selected = 0
 item_count = 3
@@ -146,7 +146,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Stacked"
 popup/item_2/id = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+[node name="TimeSpinBox" type="SpinBox" parent="HBoxContainer" unique_id=517442921]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=581405551]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 352.0
@@ -154,13 +158,13 @@ offset_right = 544.0
 offset_bottom = 383.0
 alignment = 1
 
-[node name="Label2" type="Label" parent="HBoxContainer2"]
+[node name="Label2" type="Label" parent="HBoxContainer2" unique_id=1547481003]
 layout_mode = 2
 text = "Flight Path:"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="PathTypeButton" type="OptionButton" parent="HBoxContainer2"]
+[node name="PathTypeButton" type="OptionButton" parent="HBoxContainer2" unique_id=1603588655]
 layout_mode = 2
 selected = 0
 item_count = 4
@@ -173,13 +177,13 @@ popup/item_2/id = 1
 popup/item_3/text = "FigureEight"
 popup/item_3/id = 2
 
-[node name="Label3" type="Label" parent="HBoxContainer2"]
+[node name="Label3" type="Label" parent="HBoxContainer2" unique_id=1822685850]
 layout_mode = 2
 text = "Approach Type:"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="ApproachButton" type="OptionButton" parent="HBoxContainer2"]
+[node name="ApproachButton" type="OptionButton" parent="HBoxContainer2" unique_id=1657372055]
 layout_mode = 2
 selected = 0
 item_count = 4

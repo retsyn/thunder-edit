@@ -29,6 +29,7 @@ func _ready():
 	$HBoxContainer2/PathTypeButton.item_selected.connect(_on_pathtype_changed)
 	$HBoxContainer/PageTypeButton.item_selected.connect(_on_pagetype_changed)
 	$HBoxContainer2/ApproachButton.item_selected.connect(_on_approachtype_changed)
+	$HBoxContainer/TimeSpinBox.value_changed.connect(_on_timer_changed)
 
 	level_data = LevelSequence.new()
 	level_data.page_list.append(LevelPage.new())
@@ -107,6 +108,10 @@ func _on_game_menu_item_pressed(id: int):
 			print("Loading Game IDs...")
 			if plugin:
 				plugin.show_game_open_dialog()
+
+
+func _on_timer_changed(value):
+	level_data.page_list[CurrentPage].timer = value
 
 
 func _on_pagetype_changed(index):
