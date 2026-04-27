@@ -140,10 +140,14 @@ func refresh_page():
 		$HBoxContainer2/PathTypeButton.select(page.cruise_type)
 		$HBoxContainer/PageTypeButton.select(page.flip_type)
 		$HBoxContainer2/ApproachButton.select(page.approach_type)
+		$HBoxContainer/TimeSpinBox.value = page.timer
 	else:
 		$HBoxContainer2/PathTypeButton.select(0)
 		$HBoxContainer/PageTypeButton.select(0)
 		$HBoxContainer2/ApproachButton.select(0)
+		$HBoxContainer/TimeSpinBox.value = 0
+		
+
 
 
 func page_up():

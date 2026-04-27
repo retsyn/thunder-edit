@@ -246,7 +246,7 @@ func load_wave_data(file_path):
 	var ext = file_path.substr(dot + 1).to_lower()
 
 	match ext:
-		"json":
+		"json", "sws":
 			load_from_json(file_path)
 			wave_editor_dock.last_save_path = file_path
 		
