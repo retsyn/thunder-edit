@@ -1,0 +1,591 @@
+[gd_scene format=3 uid="uid://cj2i056cpe57t"]
+
+[node name="sequencewindow" type="Control" unique_id=1814559007]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuBar" type="MenuBar" parent="." unique_id=606257489]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 40.0
+
+[node name="FileMenu" type="MenuButton" parent="MenuBar" unique_id=437135024]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "File"
+
+[node name="EditMenu" type="MenuButton" parent="MenuBar" unique_id=9068086]
+layout_mode = 0
+offset_left = 59.0
+offset_right = 94.0
+offset_bottom = 31.0
+text = "Edit"
+
+[node name="GameModeMenu" type="MenuButton" parent="MenuBar" unique_id=2096932796]
+layout_mode = 0
+offset_left = 121.0
+offset_right = 175.0
+offset_bottom = 31.0
+text = "Game"
+
+[node name="Sequence" type="MarginContainer" parent="." unique_id=228020860]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_stretch_ratio = 1.55
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="SequenceHBox" type="HBoxContainer" parent="Sequence" unique_id=1879111949]
+layout_mode = 2
+
+[node name="SequenceList" type="ItemList" parent="Sequence/SequenceHBox" unique_id=581680595]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.22
+select_mode = 1
+auto_width = true
+item_count = 2
+fixed_column_width = 318
+item_0/text = "Test Element"
+item_1/text = "Test Element"
+
+[node name="SequenceCreators" type="VBoxContainer" parent="Sequence/SequenceHBox" unique_id=2799364]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddCombat" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=759434055]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+tooltip_text = "Add a combat Sequence"
+theme_override_constants/outline_size = 8
+text = "+Combat"
+
+[node name="AddDialog" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=754262584]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme_override_constants/outline_size = 8
+text = "+Dialog
+"
+
+[node name="AddChoice" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=692331296]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme_override_constants/outline_size = 8
+text = "+Choice
+"
+
+[node name="AddFlag" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=434633059]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme_override_constants/outline_size = 8
+text = "+Flag
+"
+
+[node name="AddCinematic" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=341151613]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme_override_constants/outline_size = 8
+text = "+Cinematic"
+
+[node name="AddFlightPath" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=1451537855]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme_override_constants/outline_size = 8
+text = "+FlightPath
+"
+
+[node name="AddBranch" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=961405711]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme_override_constants/outline_size = 8
+text = "+Branch
+
+
+"
+
+[node name="AddGoto" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=542946340]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme_override_constants/outline_size = 8
+text = "+Goto
+
+"
+
+[node name="AddExit" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=436489460]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme_override_constants/outline_size = 8
+text = "+Ending
+
+
+"
+
+[node name="TabContainer" type="TabContainer" parent="Sequence/SequenceHBox" unique_id=1683932070]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.01
+current_tab = 8
+tab_1/title = "Wave"
+
+[node name="Dialog" type="Control" parent="Sequence/SequenceHBox/TabContainer" unique_id=624627440]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="DialogVBox" type="VBoxContainer" parent="Sequence/SequenceHBox/TabContainer/Dialog" unique_id=1165284563]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 665.0
+offset_bottom = 550.0
+
+[node name="DiaglogLabel" type="Label" parent="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox" unique_id=515818481]
+layout_mode = 2
+text = "Dialog Entry List:"
+
+[node name="DialogEntries" type="ItemList" parent="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox" unique_id=1591540321]
+layout_mode = 2
+size_flags_vertical = 3
+select_mode = 1
+same_column_width = true
+
+[node name="DialogHBox" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox" unique_id=1682992997]
+layout_mode = 2
+
+[node name="Portrait" type="Label" parent="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox/DialogHBox" unique_id=1436366363]
+layout_mode = 2
+text = "Portrait:"
+
+[node name="PortraitOption" type="OptionButton" parent="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox/DialogHBox" unique_id=109520576]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextCode" type="Label" parent="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox/DialogHBox" unique_id=1590659100]
+layout_mode = 2
+text = "Text Code"
+
+[node name="TextCodeEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox/DialogHBox" unique_id=1143189663]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InsertDialogButton" type="Button" parent="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox/DialogHBox" unique_id=921157709]
+layout_mode = 2
+text = "Insert
+"
+
+[node name="DeleteDialogButton" type="Button" parent="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox/DialogHBox" unique_id=134560059]
+layout_mode = 2
+text = "Delete
+"
+
+[node name="CombatWave" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer" unique_id=1091924290]
+visible = false
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_constants/separation = 17
+metadata/_tab_index = 1
+metadata/_tab_name = "Wave"
+
+[node name="WaveControlsVBox" type="VBoxContainer" parent="Sequence/SequenceHBox/TabContainer/CombatWave" unique_id=1997360116]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 4.0
+
+[node name="Wave" type="Control" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox" unique_id=289089112]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EditorField" type="Panel" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/Wave" unique_id=849565628]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 117.0
+offset_right = 510.0
+offset_bottom = 396.0
+size_flags_vertical = 2
+
+[node name="PageControlsHBox" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox" unique_id=311272888]
+layout_mode = 2
+alignment = 1
+
+[node name="PageLeftButton" type="Button" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/PageControlsHBox" unique_id=821220831]
+layout_mode = 2
+text = "< Page Left
+"
+
+[node name="PageTwoButton" type="Button" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/PageControlsHBox" unique_id=173214187]
+layout_mode = 2
+text = "Page Right >
+
+"
+
+[node name="PageTypeHBox" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox" unique_id=30818007]
+layout_mode = 2
+alignment = 1
+
+[node name="PageType" type="Label" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/PageTypeHBox" unique_id=557916507]
+layout_mode = 2
+text = "Page Type:"
+horizontal_alignment = 2
+
+[node name="PageTypeOption" type="OptionButton" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/PageTypeHBox" unique_id=1848862174]
+layout_mode = 2
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "Timed"
+popup/item_0/id = 0
+popup/item_1/text = "Clear All"
+popup/item_1/id = 1
+
+[node name="TimerSpinBox" type="SpinBox" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/PageTypeHBox" unique_id=846896964]
+layout_mode = 2
+alignment = 1
+
+[node name="ApproachControlHBox" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox" unique_id=573700134]
+layout_mode = 2
+alignment = 1
+
+[node name="ApproachType" type="Label" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/ApproachControlHBox" unique_id=286455267]
+layout_mode = 2
+text = "Approach Type:"
+horizontal_alignment = 2
+
+[node name="ApproachOption" type="OptionButton" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/ApproachControlHBox" unique_id=1244770475]
+layout_mode = 2
+item_count = 4
+popup/item_0/text = "Fore"
+popup/item_0/id = 0
+popup/item_1/text = "Aft"
+popup/item_1/id = 1
+popup/item_2/text = "Above"
+popup/item_2/id = 2
+popup/item_3/text = "Below"
+popup/item_3/id = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Sequence/SequenceHBox/TabContainer/CombatWave" unique_id=856413745]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.21
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="EntityPaletteVBox" type="VBoxContainer" parent="Sequence/SequenceHBox/TabContainer/CombatWave/MarginContainer" unique_id=1580389894]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.21
+alignment = 2
+
+[node name="Entities" type="Label" parent="Sequence/SequenceHBox/TabContainer/CombatWave/MarginContainer/EntityPaletteVBox" unique_id=1053163397]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+text = "Entities:"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ItemList" type="ItemList" parent="Sequence/SequenceHBox/TabContainer/CombatWave/MarginContainer/EntityPaletteVBox" unique_id=1845005357]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.63
+allow_search = false
+item_count = 3
+same_column_width = true
+item_0/text = "Test"
+item_1/text = "Test"
+item_2/text = "Woo"
+
+[node name="Choice" type="MarginContainer" parent="Sequence/SequenceHBox/TabContainer" unique_id=960735362]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+metadata/_tab_index = 2
+
+[node name="ChoiceGrid" type="GridContainer" parent="Sequence/SequenceHBox/TabContainer/Choice" unique_id=1039992301]
+layout_mode = 2
+columns = 3
+
+[node name="Spacer" type="Control" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid" unique_id=456370987]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TopChoiceHBox" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid" unique_id=1627646113]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopChoiceNameEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid/TopChoiceHBox" unique_id=1792890911]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "Name"
+alignment = 1
+
+[node name="TopBranchTargetEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid/TopChoiceHBox" unique_id=2117635528]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "Branch"
+alignment = 1
+
+[node name="Spacer2" type="Control" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid" unique_id=1493181683]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LeftChoiceHBox" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid" unique_id=1661792021]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeftChoiceNameEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid/LeftChoiceHBox" unique_id=663028580]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "Name"
+alignment = 1
+
+[node name="LeftBranchTargetEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid/LeftChoiceHBox" unique_id=2030877253]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "Branch"
+alignment = 1
+
+[node name="SpacerMiddle" type="Control" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid" unique_id=532748228]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightChoiceHBox" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid" unique_id=126176811]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RightChoiceNameEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid/RightChoiceHBox" unique_id=1882060594]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "Name"
+alignment = 1
+
+[node name="RightChoiceBranchTargetEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid/RightChoiceHBox" unique_id=580468192]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "Branch"
+alignment = 1
+
+[node name="Spacer3" type="Control" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid" unique_id=368394565]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BottomChoiceHBox" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid" unique_id=689649292]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BottomChoiceNameEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid/BottomChoiceHBox" unique_id=1046879950]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "Name"
+alignment = 1
+
+[node name="BottomChoiceBranchTargetEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Choice/ChoiceGrid/BottomChoiceHBox" unique_id=779229390]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "Branch"
+alignment = 1
+
+[node name="Flags" type="MarginContainer" parent="Sequence/SequenceHBox/TabContainer" unique_id=1232636448]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+metadata/_tab_index = 3
+
+[node name="FlagsHBoxContainer" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/Flags" unique_id=1877445091]
+layout_mode = 2
+
+[node name="SetFlagLabel" type="Label" parent="Sequence/SequenceHBox/TabContainer/Flags/FlagsHBoxContainer" unique_id=2103062535]
+layout_mode = 2
+text = "Set Flag:"
+
+[node name="FlagEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Flags/FlagsHBoxContainer" unique_id=2114956786]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "flag name"
+
+[node name="Cinematic" type="MarginContainer" parent="Sequence/SequenceHBox/TabContainer" unique_id=205339322]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+metadata/_tab_index = 4
+
+[node name="CinemaHBox" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/Cinematic" unique_id=359422982]
+layout_mode = 2
+
+[node name="CinemaScenePath" type="Label" parent="Sequence/SequenceHBox/TabContainer/Cinematic/CinemaHBox" unique_id=1451279926]
+layout_mode = 2
+text = "Cinema Scene path:"
+
+[node name="LineEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Cinematic/CinemaHBox" unique_id=1785430171]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "path"
+
+[node name="FlightPath" type="MarginContainer" parent="Sequence/SequenceHBox/TabContainer" unique_id=1358546118]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+metadata/_tab_index = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/FlightPath" unique_id=353723808]
+layout_mode = 2
+
+[node name="NodePath" type="Label" parent="Sequence/SequenceHBox/TabContainer/FlightPath/HBoxContainer" unique_id=48496948]
+layout_mode = 2
+text = "Node Path:"
+
+[node name="PathNodePathEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/FlightPath/HBoxContainer" unique_id=707231448]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 3.2
+
+[node name="CopyPathNodeButton" type="Button" parent="Sequence/SequenceHBox/TabContainer/FlightPath/HBoxContainer" unique_id=1361165990]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Copy Selected"
+
+[node name="Branch" type="MarginContainer" parent="Sequence/SequenceHBox/TabContainer" unique_id=8959551]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+metadata/_tab_index = 6
+
+[node name="BranchHBox" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/Branch" unique_id=1776496549]
+layout_mode = 2
+
+[node name="BranchName" type="Label" parent="Sequence/SequenceHBox/TabContainer/Branch/BranchHBox" unique_id=779689655]
+layout_mode = 2
+text = "This Branch's Name:"
+
+[node name="BranchNameEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Branch/BranchHBox" unique_id=1747122159]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "name"
+
+[node name="Goto" type="MarginContainer" parent="Sequence/SequenceHBox/TabContainer" unique_id=41202685]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+metadata/_tab_index = 7
+
+[node name="GotoHBox" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/Goto" unique_id=1814897284]
+layout_mode = 2
+
+[node name="GotoBranch" type="Label" parent="Sequence/SequenceHBox/TabContainer/Goto/GotoHBox" unique_id=2001354290]
+layout_mode = 2
+text = "Goto Branch:"
+
+[node name="BranchGotoEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Goto/GotoHBox" unique_id=222100685]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "name"
+
+[node name="GotoTypeOption" type="OptionButton" parent="Sequence/SequenceHBox/TabContainer/Goto/GotoHBox" unique_id=1294993200]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+selected = 0
+item_count = 3
+popup/item_0/text = "Full Stop"
+popup/item_0/id = 0
+popup/item_1/text = "If Flag Set"
+popup/item_1/id = 1
+popup/item_2/text = "If Flag Not Set"
+popup/item_2/id = 2
+
+[node name="GotoFlagEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Goto/GotoHBox" unique_id=1158768178]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "flag"
+
+[node name="Ending" type="MarginContainer" parent="Sequence/SequenceHBox/TabContainer" unique_id=1366784820]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+metadata/_tab_index = 8
+
+[node name="EndingType" type="OptionButton" parent="Sequence/SequenceHBox/TabContainer/Ending" unique_id=1732705153]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "Mission Complete"
+popup/item_0/id = 0
+popup/item_1/text = "Mission Failed"
+popup/item_1/id = 1
+popup/item_2/text = "Game Over"
+popup/item_2/id = 2
