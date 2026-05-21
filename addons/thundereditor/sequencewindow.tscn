@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cj2i056cpe57t"]
 
+[ext_resource type="Script" uid="uid://b6gbsah5fdec0" path="res://addons/thundereditor/sequencewindow.gd" id="1_2ehac"]
+
 [node name="sequencewindow" type="Control" unique_id=1814559007]
 layout_mode = 3
 anchors_preset = 15
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_2ehac")
 
 [node name="MenuBar" type="MenuBar" parent="." unique_id=606257489]
 layout_mode = 0
@@ -54,13 +57,10 @@ layout_mode = 2
 [node name="SequenceList" type="ItemList" parent="Sequence/SequenceHBox" unique_id=581680595]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 1.22
+size_flags_stretch_ratio = 4.74
 select_mode = 1
 auto_width = true
-item_count = 2
 fixed_column_width = 318
-item_0/text = "Test Element"
-item_1/text = "Test Element"
 
 [node name="SequenceCreators" type="VBoxContainer" parent="Sequence/SequenceHBox" unique_id=2799364]
 layout_mode = 2
@@ -323,11 +323,7 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.63
 allow_search = false
-item_count = 3
 same_column_width = true
-item_0/text = "Test"
-item_1/text = "Test"
-item_2/text = "Woo"
 
 [node name="Choice" type="MarginContainer" parent="Sequence/SequenceHBox/TabContainer" unique_id=960735362]
 visible = false
@@ -446,14 +442,22 @@ metadata/_tab_index = 3
 [node name="FlagsHBoxContainer" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/Flags" unique_id=1877445091]
 layout_mode = 2
 
-[node name="SetFlagLabel" type="Label" parent="Sequence/SequenceHBox/TabContainer/Flags/FlagsHBoxContainer" unique_id=2103062535]
+[node name="OptionButton" type="OptionButton" parent="Sequence/SequenceHBox/TabContainer/Flags/FlagsHBoxContainer" unique_id=1428983907]
 layout_mode = 2
-text = "Set Flag:"
+size_flags_horizontal = 3
+size_flags_vertical = 4
+selected = 0
+item_count = 2
+popup/item_0/text = "Set Flag"
+popup/item_0/id = 0
+popup/item_1/text = "Unset Flag"
+popup/item_1/id = 1
 
 [node name="FlagEdit" type="LineEdit" parent="Sequence/SequenceHBox/TabContainer/Flags/FlagsHBoxContainer" unique_id=2114956786]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+size_flags_stretch_ratio = 2.92
 placeholder_text = "flag name"
 
 [node name="Cinematic" type="MarginContainer" parent="Sequence/SequenceHBox/TabContainer" unique_id=205339322]
