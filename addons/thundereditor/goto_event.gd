@@ -1,4 +1,3 @@
-@tool
 extends StageEvent 
 class_name GotoEvent
 

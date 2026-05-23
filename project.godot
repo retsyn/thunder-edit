@@ -24,4 +24,4 @@ project/assembly_name="ThunderEdit"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/thunderedit/plugin.cfg")
+enabled=PackedStringArray("res://addons/thundereditor/plugin.cfg")

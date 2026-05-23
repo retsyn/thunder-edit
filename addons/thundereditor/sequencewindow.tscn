@@ -155,7 +155,7 @@ text = "+Ending
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 10.01
-current_tab = 8
+current_tab = 1
 tab_1/title = "Wave"
 
 [node name="Dialog" type="Control" parent="Sequence/SequenceHBox/TabContainer" unique_id=624627440]
@@ -210,7 +210,6 @@ text = "Delete
 "
 
 [node name="CombatWave" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer" unique_id=1091924290]
-visible = false
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
 theme_override_constants/separation = 17
@@ -574,6 +573,7 @@ size_flags_vertical = 4
 placeholder_text = "flag"
 
 [node name="Ending" type="MarginContainer" parent="Sequence/SequenceHBox/TabContainer" unique_id=1366784820]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
