@@ -594,4 +594,15 @@ popup/item_1/id = 1
 popup/item_2/text = "Game Over"
 popup/item_2/id = 2
 
+[connection signal="item_activated" from="Sequence/SequenceHBox/SequenceList" to="." method="_on_sequence_list_item_activated"]
+[connection signal="item_clicked" from="Sequence/SequenceHBox/SequenceList" to="." method="_on_sequence_list_item_clicked"]
+[connection signal="item_selected" from="Sequence/SequenceHBox/SequenceList" to="." method="_on_sequence_list_item_selected"]
 [connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddCombat" to="." method="_on_add_combat_pressed"]
+[connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddDialog" to="." method="_on_add_dialog_pressed"]
+[connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddChoice" to="." method="_on_add_choice_pressed"]
+[connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddFlag" to="." method="_on_add_flag_pressed"]
+[connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddCinematic" to="." method="_on_add_cinematic_pressed"]
+[connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddFlightPath" to="." method="_on_add_flight_path_pressed"]
+[connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddBranch" to="." method="_on_add_branch_pressed"]
+[connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddGoto" to="." method="_on_add_goto_pressed"]
+[connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddExit" to="." method="_on_add_exit_pressed"]

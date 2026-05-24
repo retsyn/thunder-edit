@@ -1,5 +1,4 @@
-extends Resource
-
+extends StageEvent
 class_name FlagEvent
 
 @export var flagname: String
