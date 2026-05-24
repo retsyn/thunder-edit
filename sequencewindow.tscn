@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cj2i056cpe57t"]
 
-[ext_resource type="Script" uid="uid://b6gbsah5fdec0" path="res://addons/thundereditor/sequencewindow.gd" id="1_2ehac"]
+[ext_resource type="Script" uid="uid://b6gbsah5fdec0" path="res://sequencewindow.gd" id="1_2ehac"]
 
 [node name="sequencewindow" type="Control" unique_id=1814559007]
 layout_mode = 3
@@ -593,3 +593,5 @@ popup/item_1/text = "Mission Failed"
 popup/item_1/id = 1
 popup/item_2/text = "Game Over"
 popup/item_2/id = 2
+
+[connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddCombat" to="." method="_on_add_combat_pressed"]

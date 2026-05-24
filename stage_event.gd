@@ -6,5 +6,5 @@ class_name StageEvent
 func to_dict():
     push_error("Child Class not implemented by %s" % get_class())
 
-func from_dict(data: Dictionary):
+func from_dict(_data: Dictionary):
     push_error("Child Class not implemented by %s" % get_class())
