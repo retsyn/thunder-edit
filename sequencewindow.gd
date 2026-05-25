@@ -107,6 +107,34 @@ func _refresh_list():
 
 func _on_sequence_list_item_clicked(index: int, _at_position: Vector2, _mouse_button_index: int):
 	selected_index = index
+	_show_related_tab()
+
 
 func _on_sequence_list_item_activated(index: int):
 	selected_index = index
+	_show_related_tab()
+
+
+func _show_related_tab():
+	var show_tab = 0
+	if edited_sequence.event_list[selected_index] is DialogEvent:
+		show_tab = 0
+	if edited_sequence.event_list[selected_index] is CombatSequence:
+		show_tab = 1
+	if edited_sequence.event_list[selected_index] is ChoiceEvent:
+		show_tab = 2
+	if edited_sequence.event_list[selected_index] is FlagEvent:
+		show_tab = 3
+	if edited_sequence.event_list[selected_index] is CinemaEvent:
+		show_tab = 4
+	if edited_sequence.event_list[selected_index] is FlightPathEvent:
+		show_tab = 5
+	if edited_sequence.event_list[selected_index] is BranchEvent:
+		show_tab = 6
+	if edited_sequence.event_list[selected_index] is GotoEvent:
+		show_tab = 7
+	if edited_sequence.event_list[selected_index] is EndEvent:
+		show_tab = 8
+
+	$Sequence/SequenceHBox/TabContainer.current_tab = show_tab
+	
