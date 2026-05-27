@@ -1,18 +1,12 @@
 extends Control
 
-@onready var wave_editor_field = $Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/Wave/EditorField
+# @onready var wave_editor_field = $Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/Wave/EditorField
 @onready var event_list = $Sequence/SequenceHBox/SequenceList
-@onready var edited_sequence = Sequence.new()
-
-@export var selected_index: int
 
 
-func _ready():
-	pass
-
-func get_editorfield():
-	return wave_editor_field
-
+func _on_ready():
+	print("Creating new editor state...")
+	EditorState.new_sequence()
 
 func _on_add_combat_pressed():
 	var new_event = CombatSequence.new()
@@ -59,81 +53,90 @@ func _on_add_exit_pressed():
 	_add_event(new_event)
 
 
-
 func _add_event(new_event):
-	if(len(edited_sequence.event_list) > 0):
-		edited_sequence.event_list.insert(selected_index + 1, new_event)
+	if(EditorState.selected_index == -1):
+		EditorState.edited_sequence.event_list.append(new_event)
+		EditorState.selected_index = 0
 	else:
-		edited_sequence.event_list.append(new_event)
-	_refresh_list()
+		EditorState.edited_sequence.event_list.insert(EditorState.selected_index + 1, new_event)
+		EditorState.selected_index += 1
 
-
-
+	_refresh_list()	
+	print("List size is %s and selection is %s" % [len(EditorState.edited_sequence.event_list), EditorState.selected_index])
+	event_list.select(EditorState.selected_index)
+	_show_related_tab()
+	
 
 
 func _refresh_list():
 	event_list.clear()
 	var index_counter = 0
-	for event in edited_sequence.event_list:
+	for event in EditorState.edited_sequence.event_list:
 		index_counter += 1
 
 		if event is CombatSequence:
-			event_list.add_item("%s. COMBAT" % index_counter)
+			event_list.add_item("%s-" % index_counter, load("res://icon2.png"))
 
 		if event is DialogEvent:
-			event_list.add_item("%s. DIALOG" % index_counter)
-
-		if event is BranchEvent:
-			event_list.add_item("%s. BRANCH: %s" % [index_counter, event.target_name])
+			event_list.add_item("%s-" % index_counter, load("res://icon1.png"))
 
 		if event is ChoiceEvent:
-			event_list.add_item("%s. CHOICE: %s/%s/%s/%s" % [index_counter, event.top_choice_name, event.left_choice_name, event.right_choice_name, event.bottom_choice_name])
-
-		if event is EndEvent:
-			event_list.add_item("%s END: %s" % [index_counter, event.end_type])
+			event_list.add_item("%s-%s/%s/%s/%s" % [index_counter, event.top_choice_name, event.left_choice_name, event.right_choice_name, event.bottom_choice_name], load("res://icon3.png"))
 
 		if event is FlagEvent:
-			event_list.add_item("%s FLAG: %s to %s" % [index_counter, event.flagname, event.setting]	)
-
-		if event is FlightPathEvent:
-			event_list.add_item("%s FLIGHTPATH: %s" % [index_counter, event.node])
+			event_list.add_item("%s-%s to %s" % [index_counter, event.flagname, event.setting], load("res://icon4.png"))
 
 		if event is CinemaEvent:
-			event_list.add_item("%s CINEMA: %s" % [index_counter, event.path])
+			event_list.add_item("%s-%s" % [index_counter, event.path], load("res://icon5.png"))
+
+		if event is FlightPathEvent:
+			event_list.add_item("%s-%s" % [index_counter, event.node], load("res://icon6.png"))
+
+		if event is BranchEvent:
+			event_list.add_item("%s-: %s" % [index_counter, event.target_name], load("res://icon7.png"))
 
 		if event is GotoEvent:
-			event_list.add_item("%s GOTO: %s w/ %s" % [index_counter, event.target_branch, event.flag])
+			event_list.add_item("%s-%s w/ %s" % [index_counter, event.target_branch, event.flag], load("res://icon8.png"))
+
+		if event is EndEvent:
+			event_list.add_item("%s-%s" % [index_counter, event.end_type], load("res://icon9.png"))
+
 
 
 func _on_sequence_list_item_clicked(index: int, _at_position: Vector2, _mouse_button_index: int):
-	selected_index = index
+	EditorState.selected_index = index
 	_show_related_tab()
 
 
+func _on_sequence_list_empty_clicked(_at_position: Vector2, _mouse_button_index: int):
+	EditorState.selected_index = -1
+
+
+
 func _on_sequence_list_item_activated(index: int):
-	selected_index = index
+	EditorState.selected_index = index
 	_show_related_tab()
 
 
 func _show_related_tab():
 	var show_tab = 0
-	if edited_sequence.event_list[selected_index] is DialogEvent:
+	if EditorState.edited_sequence.event_list[EditorState.selected_index] is DialogEvent:
 		show_tab = 0
-	if edited_sequence.event_list[selected_index] is CombatSequence:
+	if EditorState.edited_sequence.event_list[EditorState.selected_index] is CombatSequence:
 		show_tab = 1
-	if edited_sequence.event_list[selected_index] is ChoiceEvent:
+	if EditorState.edited_sequence.event_list[EditorState.selected_index] is ChoiceEvent:
 		show_tab = 2
-	if edited_sequence.event_list[selected_index] is FlagEvent:
+	if EditorState.edited_sequence.event_list[EditorState.selected_index] is FlagEvent:
 		show_tab = 3
-	if edited_sequence.event_list[selected_index] is CinemaEvent:
+	if EditorState.edited_sequence.event_list[EditorState.selected_index] is CinemaEvent:
 		show_tab = 4
-	if edited_sequence.event_list[selected_index] is FlightPathEvent:
+	if EditorState.edited_sequence.event_list[EditorState.selected_index] is FlightPathEvent:
 		show_tab = 5
-	if edited_sequence.event_list[selected_index] is BranchEvent:
+	if EditorState.edited_sequence.event_list[EditorState.selected_index] is BranchEvent:
 		show_tab = 6
-	if edited_sequence.event_list[selected_index] is GotoEvent:
+	if EditorState.edited_sequence.event_list[EditorState.selected_index] is GotoEvent:
 		show_tab = 7
-	if edited_sequence.event_list[selected_index] is EndEvent:
+	if EditorState.edited_sequence.event_list[EditorState.selected_index] is EndEvent:
 		show_tab = 8
 
 	$Sequence/SequenceHBox/TabContainer.current_tab = show_tab

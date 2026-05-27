@@ -1,6 +1,16 @@
 [gd_scene format=3 uid="uid://cj2i056cpe57t"]
 
 [ext_resource type="Script" uid="uid://b6gbsah5fdec0" path="res://sequencewindow.gd" id="1_2ehac"]
+[ext_resource type="Texture2D" uid="uid://c4l3t2rgu66i4" path="res://icon2.png" id="2_5gv0b"]
+[ext_resource type="Texture2D" uid="uid://cw17k5w7qr8vc" path="res://icon1.png" id="3_masic"]
+[ext_resource type="Texture2D" uid="uid://b6tkgyp3j68ru" path="res://icon3.png" id="4_orjb4"]
+[ext_resource type="Texture2D" uid="uid://bgf7t0uhd8x6e" path="res://icon4.png" id="5_ftx6k"]
+[ext_resource type="Texture2D" uid="uid://bwjldbmu82mrf" path="res://icon5.png" id="6_3laxk"]
+[ext_resource type="Texture2D" uid="uid://bfbt6a84erjax" path="res://icon6.png" id="7_e7w8t"]
+[ext_resource type="Texture2D" uid="uid://bspkjw0wnh0ri" path="res://icon7.png" id="8_sdy53"]
+[ext_resource type="Texture2D" uid="uid://baskts5j6t68i" path="res://icon8.png" id="9_iir6v"]
+[ext_resource type="Texture2D" uid="uid://b8j26udwia6rw" path="res://icon9.png" id="10_hibff"]
+[ext_resource type="Script" uid="uid://drjftihvfrp4n" path="res://dialog_tab.gd" id="11_masic"]
 
 [node name="sequencewindow" type="Control" unique_id=1814559007]
 layout_mode = 3
@@ -73,7 +83,8 @@ size_flags_horizontal = 5
 size_flags_vertical = 3
 tooltip_text = "Add a combat Sequence"
 theme_override_constants/outline_size = 8
-text = "+Combat"
+icon = ExtResource("2_5gv0b")
+icon_alignment = 1
 
 [node name="AddDialog" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=754262584]
 layout_direction = 2
@@ -81,8 +92,11 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
 theme_override_constants/outline_size = 8
-text = "+Dialog
+text = "
+
 "
+icon = ExtResource("3_masic")
+icon_alignment = 1
 
 [node name="AddChoice" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=692331296]
 layout_direction = 2
@@ -90,8 +104,10 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
 theme_override_constants/outline_size = 8
-text = "+Choice
+text = "
 "
+icon = ExtResource("4_orjb4")
+icon_alignment = 1
 
 [node name="AddFlag" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=434633059]
 layout_direction = 2
@@ -99,8 +115,10 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
 theme_override_constants/outline_size = 8
-text = "+Flag
+text = "
 "
+icon = ExtResource("5_ftx6k")
+icon_alignment = 1
 
 [node name="AddCinematic" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=341151613]
 layout_direction = 2
@@ -108,7 +126,8 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
 theme_override_constants/outline_size = 8
-text = "+Cinematic"
+icon = ExtResource("6_3laxk")
+icon_alignment = 1
 
 [node name="AddFlightPath" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=1451537855]
 layout_direction = 2
@@ -116,8 +135,10 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
 theme_override_constants/outline_size = 8
-text = "+FlightPath
+text = "
 "
+icon = ExtResource("7_e7w8t")
+icon_alignment = 1
 
 [node name="AddBranch" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=961405711]
 layout_direction = 2
@@ -125,10 +146,11 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
 theme_override_constants/outline_size = 8
-text = "+Branch
-
+text = "
 
 "
+icon = ExtResource("8_sdy53")
+icon_alignment = 1
 
 [node name="AddGoto" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=542946340]
 layout_direction = 2
@@ -136,9 +158,11 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
 theme_override_constants/outline_size = 8
-text = "+Goto
+text = "
 
 "
+icon = ExtResource("9_iir6v")
+icon_alignment = 1
 
 [node name="AddExit" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=436489460]
 layout_direction = 2
@@ -146,21 +170,23 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
 theme_override_constants/outline_size = 8
-text = "+Ending
+text = "
 
 
 "
+icon = ExtResource("10_hibff")
+icon_alignment = 1
 
 [node name="TabContainer" type="TabContainer" parent="Sequence/SequenceHBox" unique_id=1683932070]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 10.01
-current_tab = 1
+current_tab = 0
 tab_1/title = "Wave"
 
 [node name="Dialog" type="Control" parent="Sequence/SequenceHBox/TabContainer" unique_id=624627440]
-visible = false
 layout_mode = 2
+script = ExtResource("11_masic")
 metadata/_tab_index = 0
 
 [node name="DialogVBox" type="VBoxContainer" parent="Sequence/SequenceHBox/TabContainer/Dialog" unique_id=1165284563]
@@ -210,6 +236,7 @@ text = "Delete
 "
 
 [node name="CombatWave" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer" unique_id=1091924290]
+visible = false
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
 theme_override_constants/separation = 17
@@ -594,6 +621,7 @@ popup/item_1/id = 1
 popup/item_2/text = "Game Over"
 popup/item_2/id = 2
 
+[connection signal="empty_clicked" from="Sequence/SequenceHBox/SequenceList" to="." method="_on_sequence_list_empty_clicked"]
 [connection signal="item_activated" from="Sequence/SequenceHBox/SequenceList" to="." method="_on_sequence_list_item_activated"]
 [connection signal="item_clicked" from="Sequence/SequenceHBox/SequenceList" to="." method="_on_sequence_list_item_clicked"]
 [connection signal="item_selected" from="Sequence/SequenceHBox/SequenceList" to="." method="_on_sequence_list_item_selected"]
@@ -606,3 +634,4 @@ popup/item_2/id = 2
 [connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddBranch" to="." method="_on_add_branch_pressed"]
 [connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddGoto" to="." method="_on_add_goto_pressed"]
 [connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddExit" to="." method="_on_add_exit_pressed"]
+[connection signal="pressed" from="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox/DialogHBox/InsertDialogButton" to="Sequence/SequenceHBox/TabContainer/Dialog" method="_on_insert_dialog_button_pressed"]
