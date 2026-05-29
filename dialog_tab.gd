@@ -1,23 +1,33 @@
 extends Control
 
 @onready var dialog_list = $DialogVBox/DialogEntries
-@onready var selected_dialog = 0
+@onready var selected_dialog = -1
+@onready var portrait_dropdown = $DialogVBox/DialogHBox/PortraitOption
+@onready var code_field = $DialogVBox/DialogHBox/TextCodeEdit
 
 func _on_insert_dialog_button_pressed():
 	print("Insert Dialog Pressed")
-	var new_dialog = DialogEvent.new()
-	EditorState.edited_sequence.event_list[EditorState.selected_index] = new_dialog
-	_add_dialog(new_dialog)
+	if(EditorState.selected_index == -1):
+		print("No event created.")
+		return
+	if(EditorState.edited_sequence.event_list[EditorState.selected_index] is not DialogEvent):
+		print("Event selected isn't a DialogEvent")
+		return
+	
+	_add_dialog()
 
 
-func _add_dialog(new_element):
-	print("Inserting Dialog")
+func _add_dialog():
+	
 	var event = EditorState.edited_sequence.event_list[EditorState.selected_index]
 	if(event is DialogEvent):
-		if(selected_dialog == 0):
-			event.append_entry(1, "something")
+		if(selected_dialog == -1):
+			event.append_entry(portrait_dropdown.selected, code_field.text)
+			selected_dialog = 0
+			
 		else:
-			event.insert_entry(1, "something", selected_dialog)
+			event.insert_entry(portrait_dropdown.selected, code_field.text, selected_dialog + 1)
+			selected_dialog += 1
 	
 	_refresh_dialog_list()	
 
@@ -26,5 +36,11 @@ func _refresh_dialog_list():
 	dialog_list.clear()
 	var index_counter = 0
 	for event in EditorState.edited_sequence.event_list[EditorState.selected_index].entry_list:
+
 		index_counter += 1
-		dialog_list.add_item("%s. " % index_counter)
+		dialog_list.add_item("%s. %s %s" % [index_counter, event['portrait'], event['text']])
+
+
+func _on_dialog_entries_item_selected(index):
+	selected_dialog = index
+	print("seleced dialog is %s" % selected_dialog)

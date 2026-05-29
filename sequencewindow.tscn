@@ -216,6 +216,17 @@ text = "Portrait:"
 [node name="PortraitOption" type="OptionButton" parent="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox/DialogHBox" unique_id=109520576]
 layout_mode = 2
 size_flags_horizontal = 3
+item_count = 5
+popup/item_0/text = "Dude 1"
+popup/item_0/id = 0
+popup/item_1/text = "Dude2"
+popup/item_1/id = 1
+popup/item_2/text = "Schmekky"
+popup/item_2/id = 2
+popup/item_3/text = "Pooulet"
+popup/item_3/id = 3
+popup/item_4/text = "Fred"
+popup/item_4/id = 4
 
 [node name="TextCode" type="Label" parent="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox/DialogHBox" unique_id=1590659100]
 layout_mode = 2
@@ -634,4 +645,5 @@ popup/item_2/id = 2
 [connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddBranch" to="." method="_on_add_branch_pressed"]
 [connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddGoto" to="." method="_on_add_goto_pressed"]
 [connection signal="pressed" from="Sequence/SequenceHBox/SequenceCreators/AddExit" to="." method="_on_add_exit_pressed"]
+[connection signal="item_selected" from="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox/DialogEntries" to="." method="_on_dialog_entries_item_selected"]
 [connection signal="pressed" from="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox/DialogHBox/InsertDialogButton" to="Sequence/SequenceHBox/TabContainer/Dialog" method="_on_insert_dialog_button_pressed"]
