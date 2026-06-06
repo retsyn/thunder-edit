@@ -122,6 +122,10 @@ func _show_related_tab():
 	var show_tab = 0
 	if EditorState.edited_sequence.event_list[EditorState.selected_index] is DialogEvent:
 		show_tab = 0
+		# Enforce that this tab is refreshed-- just in case two dialog tabs are edited in a row.
+		$Sequence/SequenceHBox/TabContainer/Dialog._refresh_dialog_list()
+		$Sequence/SequenceHBox/TabContainer/Dialog.selected_dialog = -1
+
 	if EditorState.edited_sequence.event_list[EditorState.selected_index] is CombatSequence:
 		show_tab = 1
 	if EditorState.edited_sequence.event_list[EditorState.selected_index] is ChoiceEvent:
@@ -141,3 +145,5 @@ func _show_related_tab():
 
 	$Sequence/SequenceHBox/TabContainer.current_tab = show_tab
 	
+
+

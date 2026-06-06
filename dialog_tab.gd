@@ -44,3 +44,8 @@ func _refresh_dialog_list():
 func _on_dialog_entries_item_selected(index):
 	selected_dialog = index
 	print("seleced dialog is %s" % selected_dialog)
+
+func _on_delete_dialog_button_pressed():
+	print("Removing %s" % [selected_dialog])
+	EditorState.edited_sequence.event_list[EditorState.selected_index].entry_list.remove_at(selected_dialog)
+	_refresh_dialog_list()
