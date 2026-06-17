@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://baskts5j6t68i" path="res://icon8.png" id="9_iir6v"]
 [ext_resource type="Texture2D" uid="uid://b8j26udwia6rw" path="res://icon9.png" id="10_hibff"]
 [ext_resource type="Script" uid="uid://drjftihvfrp4n" path="res://dialog_tab.gd" id="11_masic"]
+[ext_resource type="Script" uid="uid://dqwyp4hhcavlm" path="res://combat_wave_dialog.gd" id="12_ftx6k"]
+[ext_resource type="Script" uid="uid://dqn37uq3eh82u" path="res://editor_field.gd" id="12_orjb4"]
 
 [sub_resource type="Theme" id="Theme_masic"]
 
@@ -48,6 +50,11 @@ offset_left = 121.0
 offset_right = 175.0
 offset_bottom = 31.0
 text = "Game"
+item_count = 2
+popup/item_0/text = "Load IDs"
+popup/item_0/id = 0
+popup/item_1/text = "Load Dialog Characters"
+popup/item_1/id = 1
 
 [node name="Sequence" type="MarginContainer" parent="." unique_id=228020860]
 layout_mode = 1
@@ -184,10 +191,11 @@ icon_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 10.01
-current_tab = 0
+current_tab = 1
 tab_1/title = "Wave"
 
 [node name="Dialog" type="Control" parent="Sequence/SequenceHBox/TabContainer" unique_id=624627440]
+visible = false
 layout_mode = 2
 script = ExtResource("11_masic")
 metadata/_tab_index = 0
@@ -249,10 +257,10 @@ text = "Delete
 "
 
 [node name="CombatWave" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer" unique_id=1091924290]
-visible = false
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
 theme_override_constants/separation = 17
+script = ExtResource("12_ftx6k")
 metadata/_tab_index = 1
 metadata/_tab_name = "Wave"
 
@@ -273,6 +281,7 @@ offset_top = 117.0
 offset_right = 510.0
 offset_bottom = 396.0
 size_flags_vertical = 2
+script = ExtResource("12_orjb4")
 
 [node name="PageControlsHBox" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox" unique_id=311272888]
 layout_mode = 2
@@ -283,7 +292,7 @@ layout_mode = 2
 text = "< Page Left
 "
 
-[node name="PageTwoButton" type="Button" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/PageControlsHBox" unique_id=173214187]
+[node name="PageRightButton" type="Button" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/PageControlsHBox" unique_id=173214187]
 layout_mode = 2
 text = "Page Right >
 
@@ -357,7 +366,7 @@ text = "Entities:"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="ItemList" type="ItemList" parent="Sequence/SequenceHBox/TabContainer/CombatWave/MarginContainer/EntityPaletteVBox" unique_id=1845005357]
+[node name="EntitySelectList" type="ItemList" parent="Sequence/SequenceHBox/TabContainer/CombatWave/MarginContainer/EntityPaletteVBox" unique_id=1845005357]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.63
@@ -650,3 +659,6 @@ popup/item_2/id = 2
 [connection signal="item_selected" from="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox/DialogEntries" to="Sequence/SequenceHBox/TabContainer/Dialog" method="_on_dialog_entries_item_selected"]
 [connection signal="pressed" from="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox/DialogHBox/InsertDialogButton" to="Sequence/SequenceHBox/TabContainer/Dialog" method="_on_insert_dialog_button_pressed"]
 [connection signal="pressed" from="Sequence/SequenceHBox/TabContainer/Dialog/DialogVBox/DialogHBox/DeleteDialogButton" to="Sequence/SequenceHBox/TabContainer/Dialog" method="_on_delete_dialog_button_pressed"]
+[connection signal="pressed" from="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/PageControlsHBox/PageLeftButton" to="Sequence/SequenceHBox/TabContainer/CombatWave" method="_on_page_left_button_pressed"]
+[connection signal="pressed" from="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/PageControlsHBox/PageRightButton" to="Sequence/SequenceHBox/TabContainer/CombatWave" method="_on_page_right_button_pressed"]
+[connection signal="item_clicked" from="Sequence/SequenceHBox/TabContainer/CombatWave/MarginContainer/EntityPaletteVBox/EntitySelectList" to="." method="_on_entity_select_list_item_clicked"]

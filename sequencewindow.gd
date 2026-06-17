@@ -2,10 +2,14 @@ extends Control
 
 # @onready var wave_editor_field = $Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/Wave/EditorField
 @onready var event_list = $Sequence/SequenceHBox/SequenceList
+@onready var enemy_palette = $Sequence/SequenceHBox/TabContainer/CombatWave/MarginContainer/EntityPaletteVBox/EntitySelectList
+@onready var types_dialog: FileDialog
 
 
-func _on_ready():
+func _ready():
 	print("Creating new editor state...")
+	$MenuBar/GameModeMenu.get_popup().id_pressed.connect(_on_menu_item_pressed)
+	 
 	EditorState.new_sequence()
 
 func _on_add_combat_pressed():
@@ -147,3 +151,64 @@ func _show_related_tab():
 	
 
 
+
+
+func _on_menu_item_pressed(id: int):
+	var item_name = $MenuBar/GameModeMenu.get_popup().get_item_text(id)
+	print("pressed...")
+	match item_name:
+		"Load IDs":
+			print("loading ids!")
+			show_game_open_dialog()
+
+	
+
+func show_game_open_dialog():
+
+	if types_dialog == null:
+		types_dialog = FileDialog.new()
+		types_dialog.connect("file_selected", Callable(self, "_on_game_file_selected"))
+		add_child(types_dialog)
+
+	types_dialog.clear_filters()
+	types_dialog.add_filter("*.JSON ; Game info JSON files")
+
+	types_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	types_dialog.access = FileDialog.ACCESS_FILESYSTEM
+	types_dialog.popup_centered()
+
+
+func _on_game_file_selected(json_path: String):
+	var file := FileAccess.open(json_path, FileAccess.READ)
+	if not file:
+		push_error("Failed to open the file: %s" % json_path)
+		return []
+	
+	var json_string := file.get_as_text()
+	file.close()
+
+	var json := JSON.new()
+	var parse_result := json.parse(json_string)
+
+	if parse_result != OK:
+		push_error("JSON parse error: %s" % json.get_error_message())
+		return []
+
+	var root = json.get_data()
+	if not root.has("enemy_types") or typeof(root["enemy_types"]) != TYPE_ARRAY:
+		push_error("No 'enemy_types' array.  Malformed JSON")
+		return []
+
+	var enemy_list = []
+	for enemy_dict in root["enemy_types"]:
+		enemy_list.append(enemy_dict)
+	
+	EditorState.enemy_types.assign(enemy_list)
+	for enemy in enemy_list:
+		enemy_palette.add_item(enemy["display_name"])
+
+	
+
+
+func _on_entity_select_list_item_clicked(index: int, _at_position: Vector2, _mouse_button_index: int):
+	EditorState.selected_enemy = index

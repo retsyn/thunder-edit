@@ -1,18 +1,12 @@
 extends Control
 
-var plugin: EditorPlugin
 @export var local_wave_data: Array[EnemyData] = []
 
-#@onready var DotScene = preload("res://addons/thunderedit/dot.tscn")
-# The "dot scene" isn't the route I'm going to go, yet.
-
-var enemy_type_data: Array = []
 var current_foe_selection: int
 var current_page: CombatPage = null
 
-
 signal data_edited
-signal tried_write_without_json
+signal tried_write_without_enemies
 
 
 func _ready():
@@ -31,7 +25,7 @@ func _on_input(event):
 
 
 func _handle_right_click(event):
-    var pos_match = false
+    #var pos_match = false
     for i in range(local_wave_data.size() - 1, -1, -1):
         if local_wave_data[i].position == event.position.snapped(Vector2(10, 10)):
             var enemy := local_wave_data[i]
@@ -43,14 +37,14 @@ func _handle_right_click(event):
 
 
 func _handle_left_click(event):
-    if enemy_type_data == []:
+    if EditorState.enemy_types == []:
         print("Must load a Game IDs json.")
-        emit_signal("tried_write_without_json", 0)
+        emit_signal("tried_write_without_enemies", 0)
         return
     var new_data = EnemyData.new()
     
     new_data.position = event.position.snapped(Vector2(10, 10))
-    new_data.enemy_id = current_foe_selection
+    new_data.enemy_id = EditorState.selected_enemy
     var pos_match = false
     for i in range(local_wave_data.size() - 1, -1, -1):
         if local_wave_data[i].position == new_data.position:
@@ -61,26 +55,26 @@ func _handle_left_click(event):
     queue_redraw()        
     emit_signal("data_edited")
 
+
 func _on_enemy_changed():
     emit_signal("data_edited")
     queue_redraw()
 
-func update_foe_type(int):
-    current_foe_selection = int
 
-func load_enemy_type_data(data):
-    print("Loaded type data:\n", data)
-    var count = 0
-    enemy_type_data = data
+func update_foe_type(type_int):
+    current_foe_selection = type_int
+
 
 func look_up_data(i):
-    return enemy_type_data[i]
+    return EditorState.enemy_types[i]
+
 
 func _draw():
     for entry in local_wave_data:
-        var colour_data = enemy_type_data[entry.enemy_id]["colour"]
+        var colour_data = EditorState.enemy_types[entry.enemy_id]["colour"]
         var new_colour = Color(colour_data[0], colour_data[1], colour_data[2])
         draw_circle(entry.position, 5.0, new_colour)
+
 
 func get_wave_data():
     return current_page
@@ -98,6 +92,3 @@ func load_entries(new_page):
         local_wave_data = current_page.enemies_list
 
     queue_redraw()
-
-func set_plugin(p: EditorPlugin):
-    plugin = p
