@@ -87,20 +87,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="AddCombat" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=759434055]
-layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
+layout_direction = 2
 tooltip_text = "Add a combat Sequence"
 theme_override_constants/outline_size = 8
 icon = ExtResource("2_5gv0b")
 icon_alignment = 1
 
 [node name="AddDialog" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=754262584]
-layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
+layout_direction = 2
 theme_override_constants/outline_size = 8
 text = "
 
@@ -109,10 +109,10 @@ icon = ExtResource("3_masic")
 icon_alignment = 1
 
 [node name="AddChoice" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=692331296]
-layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
+layout_direction = 2
 theme_override_constants/outline_size = 8
 text = "
 "
@@ -120,10 +120,10 @@ icon = ExtResource("4_orjb4")
 icon_alignment = 1
 
 [node name="AddFlag" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=434633059]
-layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
+layout_direction = 2
 theme_override_constants/outline_size = 8
 text = "
 "
@@ -131,19 +131,19 @@ icon = ExtResource("5_ftx6k")
 icon_alignment = 1
 
 [node name="AddCinematic" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=341151613]
-layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
+layout_direction = 2
 theme_override_constants/outline_size = 8
 icon = ExtResource("6_3laxk")
 icon_alignment = 1
 
 [node name="AddFlightPath" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=1451537855]
-layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
+layout_direction = 2
 theme_override_constants/outline_size = 8
 text = "
 "
@@ -151,10 +151,10 @@ icon = ExtResource("7_e7w8t")
 icon_alignment = 1
 
 [node name="AddBranch" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=961405711]
-layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
+layout_direction = 2
 theme_override_constants/outline_size = 8
 text = "
 
@@ -163,10 +163,10 @@ icon = ExtResource("8_sdy53")
 icon_alignment = 1
 
 [node name="AddGoto" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=542946340]
-layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
+layout_direction = 2
 theme_override_constants/outline_size = 8
 text = "
 
@@ -175,10 +175,10 @@ icon = ExtResource("9_iir6v")
 icon_alignment = 1
 
 [node name="AddExit" type="Button" parent="Sequence/SequenceHBox/SequenceCreators" unique_id=436489460]
-layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
+layout_direction = 2
 theme_override_constants/outline_size = 8
 text = "
 
@@ -282,6 +282,14 @@ offset_right = 510.0
 offset_bottom = 396.0
 size_flags_vertical = 2
 script = ExtResource("12_orjb4")
+
+[node name="PageLabel" type="Label" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox/Wave" unique_id=1969393168]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 401.0
+offset_right = 510.0
+offset_bottom = 426.0
+text = "Page Label"
 
 [node name="PageControlsHBox" type="HBoxContainer" parent="Sequence/SequenceHBox/TabContainer/CombatWave/WaveControlsVBox" unique_id=311272888]
 layout_mode = 2

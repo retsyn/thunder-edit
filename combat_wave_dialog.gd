@@ -1,36 +1,25 @@
-
 extends HBoxContainer
 @onready var EntityPalette = $MarginContainer/EntityPaletteVBox/EntitySelectList
 @onready var CurrentPage = 0
+@onready var editor_field = $WaveControlsVBox/Wave/EditorField
+@onready var pagelabel = $WaveControlsVBox/Wave/PageLabel
 
 
 func _on_page_left_button_pressed():
-	turn_page_left()
+	page_down()
+
 
 func _on_page_right_button_pressed():
-	turn_page_right()
-
-
-func turn_page_left():
-	if(CurrentPage > 0):
-		CurrentPage -= 1
-
-func turn_page_right():
-	CurrentPage += 1
-	if (CurrentPage >= EditorState.edited_sequence[EditorState.selected_index].level_data.size()):
-		print("Adding a fresh page.")
-		EditorState.edited_sequence[EditorState.selected_index].level_data.page_list.append(CombatPage.new())
-		EditorState.edited_sequence[EditorState.selec]
-
-	refresh_page()
-
-
-
+	page_up()
 
 
 func page_up():
 	CurrentPage += 1
-	
+	if (CurrentPage >= EditorState.edited_sequence.event_list[EditorState.selected_index].page_list.size()):
+		print("Adding a fresh page.")
+		EditorState.edited_sequence.event_list[EditorState.selected_index].page_list.append(CombatPage.new())
+	refresh_page()
+
 
 func page_down():
 	if (CurrentPage > 0):
@@ -38,7 +27,31 @@ func page_down():
 		refresh_page()
 
 
-
-
 func _on_page_two_button_pressed() -> void:
 	pass # Replace with function body.
+
+
+func refresh_page():
+
+	# Don't use these buttons if we have no sequences.
+	if(EditorState.selected_index == -1):
+		return
+
+	# Don't use these buttons if we aren't on a CombatSequence.
+	var event = EditorState.edited_sequence.event_list[EditorState.selected_index]
+	if(event is not CombatSequence):
+		return
+
+	pagelabel.text = "P:%d/%d" % [CurrentPage, event.page_list.size() - 1]
+
+	if CurrentPage < event.page_list.size():
+		var page = event.page_list[CurrentPage]
+		editor_field.load_entries(page)
+		print("Loading entries on page %s" % page)
+		$WaveControlsVBox/PageTypeHBox/PageTypeOption.select(page.flip_type)
+		$WaveControlsVBox/ApproachControlHBox/ApproachOption.select(page.approach_type)
+		$WaveControlsVBox/PageTypeHBox/TimerSpinBox.value = page.timer
+	else:
+		$WaveControlsVBox/PageTypeHBox/PageTypeOption.select(0)
+		$WaveControlsVBox/ApproachControlHBox/ApproachOption.select(0)
+		$WaveControlsVBox/PageTypeHBox/TimerSpinBox.value = 0

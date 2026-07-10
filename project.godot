@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="ThunderEdit"
 run/main_scene="uid://cj2i056cpe57t"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/stretch_mode=2
 boot_splash/image="uid://cdia3kbwjgyim"
 config/icon="uid://cdia3kbwjgyim"
