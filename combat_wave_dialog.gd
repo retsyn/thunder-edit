@@ -6,11 +6,26 @@ extends HBoxContainer
 
 
 func _on_page_left_button_pressed():
-	page_down()
+	if(_editor_state_valid()):
+		page_down()
 
 
 func _on_page_right_button_pressed():
-	page_up()
+	if(_editor_state_valid()):
+		page_up()
+
+
+func _editor_state_valid():
+	# Don't use these buttons if we have no sequences.
+	if(EditorState.selected_index == -1):
+		return false
+
+	# Don't use these buttons if we aren't on a CombatSequence.
+	var event = EditorState.edited_sequence.event_list[EditorState.selected_index]
+	if(event is not CombatSequence):
+		return false
+
+	return true
 
 
 func page_up():
@@ -32,17 +47,9 @@ func _on_page_two_button_pressed() -> void:
 
 
 func refresh_page():
-
-	# Don't use these buttons if we have no sequences.
-	if(EditorState.selected_index == -1):
-		return
-
-	# Don't use these buttons if we aren't on a CombatSequence.
 	var event = EditorState.edited_sequence.event_list[EditorState.selected_index]
-	if(event is not CombatSequence):
-		return
-
 	pagelabel.text = "P:%d/%d" % [CurrentPage, event.page_list.size() - 1]
+	
 
 	if CurrentPage < event.page_list.size():
 		var page = event.page_list[CurrentPage]
